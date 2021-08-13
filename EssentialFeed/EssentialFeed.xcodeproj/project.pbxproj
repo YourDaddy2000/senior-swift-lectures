@@ -87,9 +87,9 @@
 		1879C9A726C68C7100489C7B /* EssentialFeedTests */ = {
 			isa = PBXGroup;
 			children = (
+				1879C9B926C68E0200489C7B /* RemoteFeedLoaderTests.swift */,
 				1879C9A826C68C7100489C7B /* EssentialFeedTests.swift */,
 				1879C9AA26C68C7100489C7B /* Info.plist */,
-				1879C9B926C68E0200489C7B /* RemoteFeedLoaderTests.swift */,
 			);
 			path = EssentialFeedTests;
 			sourceTree = "<group>";
