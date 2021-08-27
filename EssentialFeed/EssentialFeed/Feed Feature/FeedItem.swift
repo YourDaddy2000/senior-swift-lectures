@@ -5,7 +5,7 @@
 //  Created by Roman Bozhenko on 13.08.2021.
 //
 
-public struct FeedItem: Equatable {
+public struct FeedItem: Equatable, Decodable {
     let id: UUID
     let description: String?
     let location: String?
@@ -16,5 +16,12 @@ public struct FeedItem: Equatable {
         self.description = description
         self.location = location
         self.imageURL = imageURL
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case id,
+             description,
+             location
+        case imageURL = "image"
     }
 }
