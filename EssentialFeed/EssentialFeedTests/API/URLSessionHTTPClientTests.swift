@@ -57,45 +57,38 @@ class URLSessionHTTPClientTests: XCTestCase {
     }
 
     func test_getFromUrl_failsOnRequestError() {
-        let error = NSError(domain: "any error", code: 1)
-        URLProtocolStub.stub(data: nil, response: nil, error: error)
-        
-        let exp = expectation(description: "wait for")
-        
-        makeSUT().get(from: anyURL()) { result in
-            switch result {
-            case .failure(let receivedError as NSError):
-                XCTAssertEqual(receivedError.domain, error.domain)
-            default:
-                XCTFail("Expected Failure with Error: \(error), got \(result) instead")
-            }
-            
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 1)
+        let requestError = NSError(domain: "any error", code: 1)
+        let responseError = resultErrorFrom(data: nil, response: nil, error: requestError)
+        XCTAssertEqual(requestError.domain, (responseError as NSError?)?.domain)
     }
     
     func test_getFromUrl_failsOnAllNilValues() {
-        URLProtocolStub.stub(data: nil, response: nil, error: nil)
+        XCTAssertNotNil(resultErrorFrom(data: nil, response: nil, error: nil))
+    }
+    
+    //MARK: - Helpers
+    private func resultErrorFrom(data: Data?, response: URLResponse?, error: Error?, file: StaticString = #filePath, line: UInt = #line) -> Error? {
+        URLProtocolStub.stub(data: data, response: response, error: error)
         
+        let sut = makeSUT(file: file, line: line)
         let exp = expectation(description: "wait for")
+        var receivedError: Error?
         
-        makeSUT().get(from: anyURL()) { result in
+        sut.get(from: anyURL()) { result in
             switch result {
-            case .failure:
-                break
+            case let .failure(error):
+                receivedError = error
             default:
-                XCTFail("Expected Failure, got \(result) instead")
+                XCTFail("Expected Failure, got \(result) instead", file: file, line: line)
             }
             
             exp.fulfill()
         }
         
         wait(for: [exp], timeout: 1)
+        return receivedError
     }
     
-    //MARK: - Helpers
     private func anyURL() -> URL {
         return URL(string: "https://any-url.com")!
     }
