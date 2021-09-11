@@ -15,10 +15,14 @@ class URLSessionHTTPClient {
         self.session = session
     }
     
+    struct UnexpectedError: Error {}
+    
     func get(from url: URL, completion: @escaping (HTTPClientResponse) -> Void) {
         session.dataTask(with: url) { _, _, error in
             if let error = error {
                 completion(.failure(error))
+            } else {
+                completion(.failure(UnexpectedError()))
             }
         }.resume()
     }
@@ -63,7 +67,26 @@ class URLSessionHTTPClientTests: XCTestCase {
             case .failure(let receivedError as NSError):
                 XCTAssertEqual(receivedError.domain, error.domain)
             default:
-                XCTFail("Expected Failure with Error: \(error), for \(result) instead")
+                XCTFail("Expected Failure with Error: \(error), got \(result) instead")
+            }
+            
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
+    }
+    
+    func test_getFromUrl_failsOnAllNilValues() {
+        URLProtocolStub.stub(data: nil, response: nil, error: nil)
+        
+        let exp = expectation(description: "wait for")
+        
+        makeSUT().get(from: anyURL()) { result in
+            switch result {
+            case .failure:
+                break
+            default:
+                XCTFail("Expected Failure, got \(result) instead")
             }
             
             exp.fulfill()
