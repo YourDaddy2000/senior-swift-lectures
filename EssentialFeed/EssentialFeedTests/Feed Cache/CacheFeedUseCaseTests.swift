@@ -16,8 +16,10 @@ class LocalFeedLoader {
         self.currentDate = currentDate
     }
     
-    func save(_ items: [FeedItem]) {
+    func save(_ items: [FeedItem], completion: @escaping (Error?) -> Void = { _ in } ) {
         store.deleteCachedFeed() { [weak self] error in
+            completion(error)
+            
             if error == nil {
                 self?.store.insert(items, timestamp: self!.currentDate())
             }
@@ -92,6 +94,23 @@ class CacheFeedUseCaseTests: XCTestCase {
         store.completeDeletionSuccessfully()
         
         XCTAssertEqual(store.receivedMessages, [.deleteCachedFeed, .insert(items, timestamp)])
+    }
+    
+    func test_save_failsOnDeletionError() {
+        let (sut, store) = makeSUT()
+        let items = [uniqueItem(), uniqueItem()]
+        let deletionError = anyError()
+        let exp = expectation(description: "wait for save completion")
+        
+        var receivedError: Error?
+        sut.save(items) { error in
+            receivedError = error
+            exp.fulfill()
+        }
+        
+        store.complete(with: deletionError)
+        wait(for: [exp], timeout: 1)
+        XCTAssertEqual(deletionError, receivedError as NSError?)
     }
 
     // MARK: - Helpers
