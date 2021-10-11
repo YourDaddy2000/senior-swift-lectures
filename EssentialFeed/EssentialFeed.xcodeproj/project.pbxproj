@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		180565ED2707987500B82107 /* CacheFeedUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180565EC2707987500B82107 /* CacheFeedUseCaseTests.swift */; };
 		180565F02714C5D600B82107 /* LocalFeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180565EF2714C5D600B82107 /* LocalFeedLoader.swift */; };
+		180565F22714C67100B82107 /* FeedStoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180565F12714C67100B82107 /* FeedStoreProtocol.swift */; };
 		180F7EF926E20FF40045CAE9 /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F7EF826E20FF40045CAE9 /* URLSessionHTTPClientTests.swift */; };
 		183CA57526DBE88000DEEA0C /* FeedItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183CA57426DBE88000DEEA0C /* FeedItemMapper.swift */; };
 		183CA57726DBE8F100DEEA0C /* HTTPClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183CA57626DBE8F100DEEA0C /* HTTPClientProtocol.swift */; };
@@ -45,6 +46,7 @@
 /* Begin PBXFileReference section */
 		180565EC2707987500B82107 /* CacheFeedUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFeedUseCaseTests.swift; sourceTree = "<group>"; };
 		180565EF2714C5D600B82107 /* LocalFeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFeedLoader.swift; sourceTree = "<group>"; };
+		180565F12714C67100B82107 /* FeedStoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedStoreProtocol.swift; sourceTree = "<group>"; };
 		180F7EF826E20FF40045CAE9 /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		183CA57426DBE88000DEEA0C /* FeedItemMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemMapper.swift; sourceTree = "<group>"; };
 		183CA57626DBE8F100DEEA0C /* HTTPClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientProtocol.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				180565EF2714C5D600B82107 /* LocalFeedLoader.swift */,
+				180565F12714C67100B82107 /* FeedStoreProtocol.swift */,
 			);
 			path = FeedCache;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				18876FF526D1775400DFDD2F /* RemoteFeedLoader.swift in Sources */,
 				180565F02714C5D600B82107 /* LocalFeedLoader.swift in Sources */,
 				1879C9B526C68CB300489C7B /* FeedLoader.swift in Sources */,
+				180565F22714C67100B82107 /* FeedStoreProtocol.swift in Sources */,
 				183CA57526DBE88000DEEA0C /* FeedItemMapper.swift in Sources */,
 				186F3E8826ECF77000C36812 /* URLSessionHTTPClient.swift in Sources */,
 			);
