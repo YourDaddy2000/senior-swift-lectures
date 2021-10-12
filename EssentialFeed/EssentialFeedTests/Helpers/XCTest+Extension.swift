@@ -27,7 +27,7 @@ extension XCTestCase {
         return NSError(domain: "any error", code: 0)
     }
     
-    func uniqueItem() -> FeedItem {
-        return FeedItem(id: UUID(), description: "any", location: "any", imageURL: anyURL())
+    func uniqueImage() -> FeedImage {
+        return FeedImage(id: UUID(), description: "any", location: "any", url: anyURL())
     }
 }
