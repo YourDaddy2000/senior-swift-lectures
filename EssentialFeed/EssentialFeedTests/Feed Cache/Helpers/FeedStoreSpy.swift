@@ -42,7 +42,7 @@ class FeedStoreSpy: FeedStoreProtocol {
         insertionCompletions[index](nil)
     }
     
-    func completeTheRetrieval(with error: Error, at index: Int = 0) {
+    func completeRetrieval(with error: Error, at index: Int = 0) {
         retrievalCompletions[index](error)
     }
     
@@ -54,5 +54,9 @@ class FeedStoreSpy: FeedStoreProtocol {
     func retrieve(completion: @escaping DeletionCompletion) {
         retrievalCompletions.append(completion)
         receivedMessages.append(.retrieve)
+    }
+    
+    func completeRetrievalWithEmptyCache(at index: Int = 0) {
+        retrievalCompletions[index](nil)
     }
 }
