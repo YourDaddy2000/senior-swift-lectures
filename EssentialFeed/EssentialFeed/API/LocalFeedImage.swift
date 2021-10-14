@@ -11,8 +11,8 @@ public struct LocalFeedImage: Equatable {
     let location: String?
     let url: URL
     
-    public init(url: UUID, description: String?, location: String?, imageURL: URL) {
-        self.id = url
+    public init(id: UUID, description: String?, location: String?, imageURL: URL) {
+        self.id = id
         self.description = description
         self.location = location
         self.url = imageURL

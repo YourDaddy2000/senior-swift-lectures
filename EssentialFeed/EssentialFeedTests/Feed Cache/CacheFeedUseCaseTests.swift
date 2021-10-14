@@ -115,10 +115,4 @@ class CacheFeedUseCaseTests: XCTestCase {
         wait(for: [exp], timeout: 1)
         XCTAssertEqual(expectedError, receivedError as NSError?)
     }
-    
-    private var uniqueImageFeed: (models: [FeedImage], local: [LocalFeedImage]) {
-        let models = [uniqueImage(), uniqueImage()]
-        let localItems = models.map { LocalFeedImage(url: $0.id, description: $0.description, location: $0.location, imageURL: $0.url) }
-        return (models, localItems)
-    }
 }
