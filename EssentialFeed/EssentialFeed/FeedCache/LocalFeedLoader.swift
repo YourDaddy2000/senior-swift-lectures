@@ -23,13 +23,6 @@ public final class LocalFeedLoader: FeedLoader {
         }
         return currentDate() < maxCacheAge
     }
-    
-    private func cache(_ feed: [FeedImage], with completion: @escaping (SaveResult) -> Void) {
-        store.insert(feed.toLocal(), timestamp: currentDate()) { [weak self] error in
-            guard let _ = self else { return }
-            completion(error)
-        }
-    }
 }
 
 private extension Array where Element == FeedImage {
@@ -55,6 +48,13 @@ extension LocalFeedLoader {
             } else {
                 self.cache(feed, with: completion)
             }
+        }
+    }
+    
+    private func cache(_ feed: [FeedImage], with completion: @escaping (SaveResult) -> Void) {
+        store.insert(feed.toLocal(), timestamp: currentDate()) { [weak self] error in
+            guard let _ = self else { return }
+            completion(error)
         }
     }
 }
