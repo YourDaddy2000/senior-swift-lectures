@@ -193,7 +193,7 @@ class CodableFeedStoreTests: XCTestCase {
     }
     
     //MARK: - Helpers
-    private func deleteCache(from sut: CodableFeedStore) -> Error? {
+    private func deleteCache(from sut: FeedStoreProtocol) -> Error? {
         let exp = expectation(description: "wait for deletion completion")
         
         var deletionError: Error?
@@ -207,7 +207,7 @@ class CodableFeedStoreTests: XCTestCase {
     }
     
     @discardableResult
-    private func insert(_ cache: (feed: [LocalFeedImage], timestamp: Date), to sut: CodableFeedStore, file: StaticString = #file, line: UInt = #line) -> Error? {
+    private func insert(_ cache: (feed: [LocalFeedImage], timestamp: Date), to sut: FeedStoreProtocol, file: StaticString = #file, line: UInt = #line) -> Error? {
         let exp = expectation(description: "wait for completion")
         var insertionError: Error?
         sut.insert(cache.feed, timestamp: cache.timestamp) { receivedInsertionError in
@@ -219,12 +219,12 @@ class CodableFeedStoreTests: XCTestCase {
         return insertionError
     }
     
-    private func expect(_ sut: CodableFeedStore, toRetrieveTwice expectedResult: RetrieveCachedFeedResult, file: StaticString = #file, line: UInt = #line) {
+    private func expect(_ sut: FeedStoreProtocol, toRetrieveTwice expectedResult: RetrieveCachedFeedResult, file: StaticString = #file, line: UInt = #line) {
         expect(sut, toRetrieve: expectedResult)
         expect(sut, toRetrieve: expectedResult)
     }
     
-    private func expect(_ sut: CodableFeedStore, toRetrieve expectedResult: RetrieveCachedFeedResult, file: StaticString = #file, line: UInt = #line) {
+    private func expect(_ sut: FeedStoreProtocol, toRetrieve expectedResult: RetrieveCachedFeedResult, file: StaticString = #file, line: UInt = #line) {
         let exp = expectation(description: "Wait for cache retrieval")
         
         sut.retrieve { retrievedResult in
@@ -256,7 +256,7 @@ class CodableFeedStoreTests: XCTestCase {
         try? FileManager.default.removeItem(at: testSpecificStoreURL)
     }
     
-    private func makeSUT(storeURL: URL? = nil, file: StaticString = #file, line: UInt = #line) -> CodableFeedStore {
+    private func makeSUT(storeURL: URL? = nil, file: StaticString = #file, line: UInt = #line) -> FeedStoreProtocol {
         let sut = CodableFeedStore(storeURL: storeURL ?? testSpecificStoreURL)
         trackForMemoryLeaks(sut)
         
