@@ -5,7 +5,7 @@
 //  Created by Roman Bozhenko on 08.11.2021.
 //
 
-import Foundation
+import CoreData
 
 public final class CoreDataFeedStore: FeedStoreProtocol {
     public init() {}
@@ -21,4 +21,17 @@ public final class CoreDataFeedStore: FeedStoreProtocol {
     public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
         
     }
+}
+
+private class ManagedCache: NSManagedObject {
+    @NSManaged var timestamp: Date
+    @NSManaged var feed: NSOrderedSet
+}
+
+private class ManagedFeedImage: NSManagedObject {
+    @NSManaged var id: UUID
+    @NSManaged var imageDescription: String?
+    @NSManaged var location: String?
+    @NSManaged var url: URL
+    @NSManaged var cache: ManagedCache
 }
