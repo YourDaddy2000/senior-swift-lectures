@@ -5,7 +5,7 @@
 //  Created by Roman Bozhenko on 01.11.2021.
 //
 
-public class CodableFeedStore: FeedStoreProtocol {
+public final class CodableFeedStore: FeedStoreProtocol {
     private struct CodableFeedImage: Codable {
         private let id: UUID
         private let description: String?
