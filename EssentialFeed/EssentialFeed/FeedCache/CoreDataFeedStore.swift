@@ -48,7 +48,17 @@ public final class CoreDataFeedStore: FeedStoreProtocol {
     }
     
     public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
-        completion(nil)
+        let context = self.context
+        context.perform {
+            do {
+                try ManagedCache.find(in: context).map(context.delete).map(context.save)
+                let isCacheEmpty = try ManagedCache.find(in: context) == nil
+                let error = NSPersistentContainer.DeletionError.cacheHasNotBeenDeleted
+                completion(isCacheEmpty ? nil : error)
+            } catch {
+                completion(error)
+            }
+        }
     }
 }
 
@@ -56,6 +66,10 @@ private extension NSPersistentContainer {
     enum LoadingError: Swift.Error {
         case modelNotFound
         case failedToLoadPersistentStores(Swift.Error)
+    }
+    
+    enum DeletionError: Swift.Error {
+        case cacheHasNotBeenDeleted
     }
     
     static func load(modelName name: String, url: URL, in bundle: Bundle) throws -> NSPersistentContainer {
