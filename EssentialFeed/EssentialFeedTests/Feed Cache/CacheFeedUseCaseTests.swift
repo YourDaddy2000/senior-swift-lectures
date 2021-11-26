@@ -74,7 +74,7 @@ class CacheFeedUseCaseTests: XCTestCase {
     func test_save_doesNotDeliverDeletionErrorAfterSUTInstanceHasBeenDeallocated() {
         let store = FeedStoreSpy()
         var sut: LocalFeedLoader? = LocalFeedLoader(store: store, currentDate: Date.init)
-        var receivedResults = [Error?]()
+        var receivedResults = [LocalFeedLoader.SaveResult?]()
         sut?.save(uniqueImageFeed.models) { receivedResults.append($0) }
         sut = nil
         store.complete(with: anyError())
@@ -84,7 +84,7 @@ class CacheFeedUseCaseTests: XCTestCase {
     func test_save_doesNotDeliverInsertionErrorAfterSUTInstanceHasBeenDeallocated() {
         let store = FeedStoreSpy()
         var sut: LocalFeedLoader? = LocalFeedLoader(store: store, currentDate: Date.init)
-        var receivedResults = [Error?]()
+        var receivedResults = [LocalFeedLoader.SaveResult?]()
         sut?.save(uniqueImageFeed.models) { receivedResults.append($0) }
         store.completeDeletionSuccessfully()
         sut = nil
@@ -105,8 +105,10 @@ class CacheFeedUseCaseTests: XCTestCase {
         let exp = expectation(description: "wait for save completion")
         
         var receivedError: Error?
-        sut.save([uniqueImage()]) { error in
-            receivedError = error
+        sut.save([uniqueImage()]) { result in
+            if case let Result.failure(error) = result {
+                receivedError = error
+            }
             exp.fulfill()
         }
         
