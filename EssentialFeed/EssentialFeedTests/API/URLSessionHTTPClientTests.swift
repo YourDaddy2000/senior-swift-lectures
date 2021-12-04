@@ -78,7 +78,7 @@ class URLSessionHTTPClientTests: XCTestCase {
         let result = resultFrom(data: data, response: response, error: error)
         
         switch result {
-        case let .success(data, response):
+        case let .success((data, response)):
             return (data, response)
         default:
             XCTFail("Expected Success, got \(result) instead", file: file, line: line)

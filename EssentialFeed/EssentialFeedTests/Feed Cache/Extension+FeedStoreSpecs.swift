@@ -164,6 +164,9 @@ extension FeedStoreSpecs where Self: XCTestCase {
         let exp = expectation(description: "wait for completion")
         var insertionError: Error?
         sut.insert(cache.feed, timestamp: cache.timestamp) { receivedInsertionError in
+            if case let Result.failure(error) = receivedInsertionError {
+                insertionError = error
+            }
             XCTAssertNil(insertionError, "Expected Feed to be inserted successfully")
             if case let Result.failure(error) = receivedInsertionError {
                 XCTAssertNil(error, "Expected Feed to be inserted successfully")
@@ -187,7 +190,7 @@ extension FeedStoreSpecs where Self: XCTestCase {
             case (.success(.none), .success(.none)),
                 (.failure, .failure):
                 break
-            case let (.success(.some(expectedFeed, expectedTimestamp)), .success(.some(retrievedFeed, retrievedTimestamp))):
+            case let (.success(.some((expectedFeed, expectedTimestamp))), .success(.some((retrievedFeed, retrievedTimestamp)))):
                 XCTAssertEqual(expectedFeed, retrievedFeed)
                 XCTAssertEqual(expectedTimestamp, retrievedTimestamp)
             default: break
