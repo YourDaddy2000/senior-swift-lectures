@@ -14,6 +14,7 @@
 		1832B274275B7E3700353707 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1832B272275B7E3700353707 /* LaunchScreen.storyboard */; };
 		1832B27C275B863F00353707 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832B27B275B863F00353707 /* FeedTableViewController.swift */; };
 		1832B27E275BC05200353707 /* FeedImageViewModel+PrototypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832B27D275BC05200353707 /* FeedImageViewModel+PrototypeData.swift */; };
+		1832B280275BC1F300353707 /* FeedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832B27F275BC1F300353707 /* FeedImageCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		1832B275275B7E3700353707 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1832B27B275B863F00353707 /* FeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
 		1832B27D275BC05200353707 /* FeedImageViewModel+PrototypeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedImageViewModel+PrototypeData.swift"; sourceTree = "<group>"; };
+		1832B27F275BC1F300353707 /* FeedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				1832B267275B7E3500353707 /* AppDelegate.swift */,
 				1832B269275B7E3500353707 /* SceneDelegate.swift */,
 				1832B27B275B863F00353707 /* FeedTableViewController.swift */,
+				1832B27F275BC1F300353707 /* FeedImageCell.swift */,
 				1832B27D275BC05200353707 /* FeedImageViewModel+PrototypeData.swift */,
 				1832B26D275B7E3500353707 /* Main.storyboard */,
 				1832B270275B7E3700353707 /* Assets.xcassets */,
@@ -145,6 +148,7 @@
 				1832B27C275B863F00353707 /* FeedTableViewController.swift in Sources */,
 				1832B26A275B7E3500353707 /* SceneDelegate.swift in Sources */,
 				1832B27E275BC05200353707 /* FeedImageViewModel+PrototypeData.swift in Sources */,
+				1832B280275BC1F300353707 /* FeedImageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
