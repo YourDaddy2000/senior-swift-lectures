@@ -13,13 +13,33 @@ class FeedImageCell: UITableViewCell {
     @IBOutlet private weak var feedImageView: UIImageView!
     @IBOutlet private weak var descriptionLabel: UILabel!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        feedImageView.alpha = 0
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        feedImageView.alpha = 0
+    }
+    
     func configure(with model: FeedImageViewModel) {
         locationContainer.isHidden = model.location == nil
         locationLabel.text = model.location
         
-        feedImageView.image = UIImage(named: model.imageName)
-        
-        descriptionLabel.text = model.description
         descriptionLabel.isHidden = model.description == nil
+        descriptionLabel.text = model.description
+        
+        fadeIn(imageName: model.imageName)
+    }
+    
+    private func fadeIn(imageName name: String) {
+        feedImageView.image = UIImage(named: name)
+        
+        UIView.animate(withDuration: 0.3, delay: 0.3) {
+            self.feedImageView.alpha = 1
+        }
     }
 }
