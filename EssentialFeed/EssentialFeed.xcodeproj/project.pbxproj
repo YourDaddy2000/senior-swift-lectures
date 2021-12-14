@@ -48,6 +48,7 @@
 		18BA72FB26ED256200875F0E /* XCTest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F3E8526ECCDDF00C36812 /* XCTest+Extension.swift */; };
 		18BCD801275CF95F007455DC /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BCD800275CF95F007455DC /* FeedViewController.swift */; };
 		84703E4927665711001EB691 /* FeedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84703E4827665711001EB691 /* FeedImageCell.swift */; };
+		84EAA3992768A83900A6D401 /* UIView+Shimmering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EAA3982768A83900A6D401 /* UIView+Shimmering.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +145,7 @@
 		18BA72F426ED153100875F0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18BCD800275CF95F007455DC /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		84703E4827665711001EB691 /* FeedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCell.swift; sourceTree = "<group>"; };
+		84EAA3982768A83900A6D401 /* UIView+Shimmering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shimmering.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +229,7 @@
 			children = (
 				18BCD800275CF95F007455DC /* FeedViewController.swift */,
 				84703E4827665711001EB691 /* FeedImageCell.swift */,
+				84EAA3982768A83900A6D401 /* UIView+Shimmering.swift */,
 			);
 			path = EssentialFeediOS;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84EAA3992768A83900A6D401 /* UIView+Shimmering.swift in Sources */,
 				18BCD801275CF95F007455DC /* FeedViewController.swift in Sources */,
 				84703E4927665711001EB691 /* FeedImageCell.swift in Sources */,
 			);
