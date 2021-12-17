@@ -50,6 +50,6 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
     }
     
     private func cancelImageLoad(forRowAt indexPath: IndexPath) {
-        tableModel[indexPath.row].cancel()
+        tableModel[indexPath.row].cancelLoad()
     }
 }
