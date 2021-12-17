@@ -405,25 +405,3 @@ private extension FeedImageCell {
         feedImageRetryButton.simulateTap()
     }
 }
-
-private extension UIButton {
-    func simulateTap() {
-        simulate(.touchUpInside)
-    }
-}
-
-private extension UIRefreshControl {
-    func simulatePullToRefresh() {
-        simulate(.valueChanged)
-    }
-}
-
-private extension UIControl {
-    func simulate(_ event: UIControl.Event) {
-        allTargets.forEach { target in
-            actions(forTarget: target, forControlEvent: event)?.forEach {
-                (target as NSObject).perform(Selector($0))
-            }
-        }
-    }
-}
