@@ -33,7 +33,7 @@ final class FeedPresenter {
     var feedView: FeedViewProtocol?
     var loadingView: FeedLoadingViewProtocol?
     
-    func refresh() {
+    func loadFeed() {
         loadingView?.display(viewModel: FeedLoadingViewModel(isLoading: true))
         
         feedLoader.load { [weak self] result in
