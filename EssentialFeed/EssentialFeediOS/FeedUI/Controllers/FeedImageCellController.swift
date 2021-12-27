@@ -40,7 +40,7 @@ final class FeedImageCellController: FeedImageViewProtocol {
         cell?.locationLabel.text = model.location
         cell?.descriptionLabel.text = model.description
         cell?.onRetry = delegate.didRequestImage
-        cell?.feedImageView.image = model.image
+        cell?.feedImageView.setImageAnimated(model.image)
         cell?.feedImageContainer.isShimmering = model.isLoading
         cell?.feedImageRetryButton.isHidden = !model.shouldRetry
     }
