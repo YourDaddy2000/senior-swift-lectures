@@ -7,7 +7,7 @@
 
 import EssentialFeed
 
-protocol FeedLoadingViewProtocol: AnyObject {
+protocol FeedLoadingViewProtocol {
     func display(isLoading: Bool)
 }
 
@@ -23,7 +23,7 @@ final class FeedPresenter {
     }
     
     var feedView: FeedViewProtocol?
-    weak var loadingView: FeedLoadingViewProtocol?
+    var loadingView: FeedLoadingViewProtocol?
     
     func refresh() {
         loadingView?.display(isLoading: true)
