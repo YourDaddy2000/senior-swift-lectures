@@ -29,8 +29,8 @@ private final class FeedViewAdapter: FeedViewProtocol {
         self.loader = loader
     }
     
-    func display(feed: [FeedImage]) {
-        controller?.tableModel = feed.map { model in
+    func display(viewModel: FeedViewModel) {
+        controller?.tableModel = viewModel.feed.map { model in
             FeedImageCellController(
                 viewModel: FeedImageViewModel(
                     model: model,
@@ -51,7 +51,7 @@ final class WeakRefVirtualProxy<T: AnyObject> {
 }
 
 extension WeakRefVirtualProxy: FeedLoadingViewProtocol where T: FeedLoadingViewProtocol {
-    func display(isLoading: Bool) {
-        object?.display(isLoading: isLoading)
+    func display(viewModel: FeedLoadingViewModel) {
+        object?.display(viewModel: viewModel)
     }
 }
