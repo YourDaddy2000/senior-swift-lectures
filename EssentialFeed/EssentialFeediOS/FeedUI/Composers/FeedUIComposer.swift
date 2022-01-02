@@ -46,6 +46,30 @@ private final class FeedViewAdapter: FeedViewProtocol {
     }
 }
 
+private final class MainQueueDispatchDecorator<T> {
+    internal init(decoratee: T) {
+        self.decoratee = decoratee
+    }
+    
+    let decoratee: T
+    
+    func dispatch(completion: @escaping () -> Void) {
+        guard Thread.isMainThread else {
+            return DispatchQueue.main.async(execute: completion)
+        }
+        
+        completion()
+    }
+}
+
+extension MainQueueDispatchDecorator: FeedLoader where T == FeedLoader {
+    func load(completion: @escaping (FeedLoader.Result) -> Void) {
+        decoratee.load { [weak self] result in
+            self?.dispatch { completion(result) }
+        }
+    }
+}
+
 private extension FeedViewController {
     static func makeWith(delegate: FeedViewControllerDelegate, title: String) -> FeedViewController {
         let bundle = Bundle(for: FeedViewController.self)
