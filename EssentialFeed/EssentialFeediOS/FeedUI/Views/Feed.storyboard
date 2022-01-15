@@ -22,6 +22,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="34"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                    <connections>
+                                        <action selector="hideMessageAnimated" destination="clu-9B-M8g" eventType="touchUpInside" id="fjB-kT-nkl"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
