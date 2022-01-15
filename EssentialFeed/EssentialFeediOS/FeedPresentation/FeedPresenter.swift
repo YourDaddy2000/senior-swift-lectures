@@ -8,10 +8,6 @@
 import Foundation
 import EssentialFeed
 
-struct FeedErrorViewModel{
-    let message: String?
-}
-
 protocol FeedErrorViewProtocol {
     func display(_ viewModel: FeedErrorViewModel)
 }
