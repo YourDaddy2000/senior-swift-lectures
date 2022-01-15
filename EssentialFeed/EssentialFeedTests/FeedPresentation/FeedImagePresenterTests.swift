@@ -75,7 +75,7 @@ class FeedImagePresenterTests: XCTestCase {
     }
     
     func test_didFinishLoadingImageData_displaysRetryOnFailedImageTransformation() {
-        let (sut, view) = makeSUT()
+        let (sut, view) = makeSUT(imageTransformer: fail)
         let image = uniqueImage()
         let data = Data()
         
@@ -91,6 +91,10 @@ class FeedImagePresenterTests: XCTestCase {
     }
     
     //MARK: - Helpers
+    private var fail: (Data) -> Any? {
+        { _ in nil }
+    }
+    
     private func makeSUT(imageTransformer: @escaping (Data) -> Any? = { _ in nil }) -> (FeedImagePresenter, ViewSpy) {
         let view = ViewSpy()
         let sut = FeedImagePresenter(view: view, imageTransformer: imageTransformer)
