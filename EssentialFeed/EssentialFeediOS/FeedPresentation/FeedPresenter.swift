@@ -9,7 +9,7 @@ import Foundation
 import EssentialFeed
 
 struct FeedErrorViewModel{
-    let message: String
+    let message: String?
 }
 
 protocol FeedErrorViewProtocol {
@@ -52,6 +52,7 @@ final class FeedPresenter {
     }
     
     func didStartLoadingFeed() {
+        errorView.display(FeedErrorViewModel(message: nil))
         loadingView.display(viewModel: FeedLoadingViewModel(isLoading: true))
     }
     
