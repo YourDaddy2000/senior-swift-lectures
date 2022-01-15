@@ -15,19 +15,30 @@ struct FeedErrorViewModel {
     }
 }
 
+struct FeedLoadingViewModel {
+    let isLoading: Bool?
+}
+
+protocol LoadingViewProtocol {
+    func display(_ viewModel: FeedLoadingViewModel)
+}
+
 protocol FeedErrorViewProtocol {
     func display(_ viewModel: FeedErrorViewModel)
 }
 
 final class FeedPresenter {
     private let errorView: FeedErrorViewProtocol
+    private let loadingView: LoadingViewProtocol
     
-    init(errorView: FeedErrorViewProtocol) {
+    init(loadingView: LoadingViewProtocol, errorView: FeedErrorViewProtocol) {
+        self.loadingView = loadingView
         self.errorView = errorView
     }
     
     func didStartLoadingFeed() {
         errorView.display(.noError)
+        loadingView.display(FeedLoadingViewModel(isLoading: true))
     }
 }
 
@@ -42,29 +53,37 @@ class FeedPresentationTests: XCTestCase {
         let (sut, view) = makeSUT()
         
         sut.didStartLoadingFeed()
-        XCTAssertEqual(view.messages, [.display(errorMessage: .none)])
+        XCTAssertEqual(view.messages, [
+            .display(errorMessage: .none),
+            .display(isLoading: true)
+        ])
     }
 
     
     //MARK: - Helpers
     private func makeSUT() -> (FeedPresenter, ViewSpy) {
         let viewSpy = ViewSpy()
-        let presenter = FeedPresenter(errorView: viewSpy)
+        let presenter = FeedPresenter(loadingView: viewSpy, errorView: viewSpy)
         trackForMemoryLeaks(viewSpy)
         trackForMemoryLeaks(presenter)
         
         return (presenter, viewSpy)
     }
     
-    private class ViewSpy: FeedErrorViewProtocol {
+    private class ViewSpy: FeedErrorViewProtocol, LoadingViewProtocol {
         enum Messages: Equatable {
             case display(errorMessage: String?)
+            case display(isLoading: Bool?)
         }
         
         var messages = [Messages]()
         
         func display(_ viewModel: FeedErrorViewModel) {
             messages.append(.display(errorMessage: viewModel.message))
+        }
+        
+        func display(_ viewModel: FeedLoadingViewModel) {
+            messages.append(.display(isLoading: viewModel.isLoading))
         }
     }
 }
