@@ -6,3 +6,4 @@
   
 */
 "feed_view_title" = "My Feed";
+"FEED_VIEW_CONNECTION_ERROR" = "Connection Error";
