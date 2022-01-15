@@ -1,0 +1,9 @@
+/* 
+  Feed.strings
+  EssentialFeed
+
+  Created by Roman Bozhenko on 15.01.2022.
+  
+*/
+"feed_view_title" = "My Feed";
+"FEED_VIEW_CONNECTION_ERROR" = "Fehler";
