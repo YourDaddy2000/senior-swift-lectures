@@ -8,7 +8,7 @@
 import XCTest
 @testable import EssentialFeed
 
-class RemoteFeedImageDataLoaderTests: XCTestCase {
+class LoadFeedImageDataFromRemoteUseCaseTests: XCTestCase {
 
     func test_init_doesNotMessageStore() {
         let (_, spy) = makeSUT()
