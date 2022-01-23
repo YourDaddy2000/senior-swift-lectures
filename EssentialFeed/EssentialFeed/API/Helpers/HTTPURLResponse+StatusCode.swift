@@ -13,4 +13,4 @@ extension HTTPURLResponse {
     var isOK: Bool {
         statusCode == Self.OK_200
     }
-}statusCode == 200
+}
