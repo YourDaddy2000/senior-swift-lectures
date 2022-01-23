@@ -163,14 +163,18 @@ class LoadFeedFromRemoteUseCaseTests: XCTestCase {
     }
     
     private class HTTPClientSpy: HTTPClient {
+        private struct Task: HTTPClientTask {
+            func cancel() { }
+        }
         private var messages = [(url: URL, completion: (HTTPClient.Response) -> Void)]()
         
         var requestedURLs: [URL] {
             return messages.map { $0.url }
         }
         
-        func get(from url: URL, completion: @escaping (HTTPClient.Response) -> Void) {
+        func get(from url: URL, completion: @escaping (HTTPClient.Response) -> Void) -> HTTPClientTask {
             messages.append((url: url, completion: completion))
+            return Task()
         }
         
         func complete(withError error: Error, at index: Int = 0) {
