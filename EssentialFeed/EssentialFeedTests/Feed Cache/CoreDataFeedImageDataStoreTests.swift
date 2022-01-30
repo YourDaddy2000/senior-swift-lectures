@@ -16,17 +16,21 @@ extension CoreDataFeedStore: FeedImageDataStore {
     public func retrieve(dataForURL url: URL, completion: @escaping (FeedImageDataStore.RetrievalResult) -> Void) {
         completion(.success(.none))
     }
-    
-    
 }
 
 class CoreDataFeedImageDataStoreTests: XCTestCase {
 
     func test_retrieveImageData_deliversNotFoundWhenEmpty() {
+        let sut = makeSUT()
         
+        expect(sut, toCompleteWith: notFound(), for: anyURL())
     }
     
     //MARK: - Helpers
+    private func notFound() -> FeedImageDataStore.RetrievalResult {
+        return .success(.none)
+    }
+    
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CoreDataFeedStore {
         let storeBundle = Bundle(for: CoreDataFeedStore.self)
         let storeURL = URL(fileURLWithPath: "dev/null")
@@ -35,7 +39,7 @@ class CoreDataFeedImageDataStoreTests: XCTestCase {
         return sut
     }
     
-    private func expect(_ sut: CoreDataFeedStore, toCompleteWith expectedResult: FeedImageDataStore.RetrievalResult, file: StaticString = #file, line: UInt = #line) {
+    private func expect(_ sut: CoreDataFeedStore, toCompleteWith expectedResult: FeedImageDataStore.RetrievalResult, for url: URL, file: StaticString = #file, line: UInt = #line) {
         let exp = expectation(description: "wait for completion")
         sut.retrieve(dataForURL: anyURL()) { receivedResult in
             switch (expectedResult, receivedResult) {
