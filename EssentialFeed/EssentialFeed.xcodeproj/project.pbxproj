@@ -221,7 +221,7 @@
 		844B1B292793395B0078517B /* FeedImagePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImagePresenterTests.swift; sourceTree = "<group>"; };
 		844B1B2B27934FE80078517B /* FeedImagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImagePresenter.swift; sourceTree = "<group>"; };
 		844B1B2D279350360078517B /* FeedImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageViewModel.swift; sourceTree = "<group>"; };
-		846E1B6927A71C4800DB9B7E /* FeedImageDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeedImageDataStore.swift; path = EssentialFeed/FeedCache/FeedImageDataStore.swift; sourceTree = "<group>"; };
+		846E1B6927A71C4800DB9B7E /* FeedImageDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataStore.swift; sourceTree = "<group>"; };
 		846E1B6B27A7233700DB9B7E /* FeedImageDataStoreSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataStoreSpy.swift; sourceTree = "<group>"; };
 		846E1B6D27A723F900DB9B7E /* CacheFeedImageDataUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFeedImageDataUseCaseTests.swift; sourceTree = "<group>"; };
 		84703E4827665711001EB691 /* FeedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCell.swift; sourceTree = "<group>"; };
@@ -305,6 +305,7 @@
 		180565EE2714C5A100B82107 /* FeedCache */ = {
 			isa = PBXGroup;
 			children = (
+				846E1B6927A71C4800DB9B7E /* FeedImageDataStore.swift */,
 				180565EF2714C5D600B82107 /* LocalFeedLoader.swift */,
 				188C13A52720931300E0D45E /* FeedCachePolicy.swift */,
 				180565F12714C67100B82107 /* FeedStoreProtocol.swift */,
@@ -365,7 +366,6 @@
 		1879C99026C68C7000489C7B = {
 			isa = PBXGroup;
 			children = (
-				846E1B6927A71C4800DB9B7E /* FeedImageDataStore.swift */,
 				1879C99C26C68C7000489C7B /* EssentialFeed */,
 				1879C9A726C68C7100489C7B /* EssentialFeedTests */,
 				18BA72F126ED153100875F0E /* EssentialFeedApiEndToEndTests */,
