@@ -28,7 +28,7 @@ class LocalFeedImageDataLoaderTests: XCTestCase {
         
         expect(sut, toCompleteWith: failed(), when: {
             let retrievalError = anyError()
-            store.complete(withError: retrievalError)
+            store.completeRetrieval(with: retrievalError)
         })
     }
     
@@ -36,7 +36,7 @@ class LocalFeedImageDataLoaderTests: XCTestCase {
         let (sut, store) = makeSUT()
         
         expect(sut, toCompleteWith: notFound()) {
-            store.complete(with: .none)
+            store.completeRetrieval(with: .none)
         }
     }
     
@@ -45,7 +45,7 @@ class LocalFeedImageDataLoaderTests: XCTestCase {
         let foundData = anyData()
         
         expect(sut, toCompleteWith: .success(foundData)) {
-            store.complete(with: foundData)
+            store.completeRetrieval(with: foundData)
         }
     }
     
@@ -57,22 +57,22 @@ class LocalFeedImageDataLoaderTests: XCTestCase {
         let task = sut.loadImageData(from: anyURL()) { received.append($0) }
         task.cancel()
         
-        store.complete(with: foundData)
-        store.complete(withError: anyError())
-        store.complete(with: .none)
+        store.completeRetrieval(with: foundData)
+        store.completeRetrieval(with: anyError())
+        store.completeRetrieval(with: .none)
         
         XCTAssertTrue(received.isEmpty, "Expected no received results after cancelling task")
     }
     
     func test_loadImageDataFromURL_doesNotDeliverResultAfterSUTHasBeenDeallocated() {
         let store = StoreSpy()
-        var sut: LocalFeedImageLoader? = LocalFeedImageLoader(store: store)
+        var sut: LocalFeedImageDataLoader? = LocalFeedImageDataLoader(store: store)
         
         var received = [FeedImageDataLoader.Result]()
         _ = sut?.loadImageData(from: anyURL()) { received.append($0) }
         
         sut = nil
-        store.complete(with: anyData())
+        store.completeRetrieval(with: anyData())
         
         XCTAssertTrue(received.isEmpty, "Expected no received results after instance has been deallocated")
     }
@@ -88,14 +88,14 @@ class LocalFeedImageDataLoaderTests: XCTestCase {
     
     //MARK: - Helpers
     private func failed() -> FeedImageDataLoader.Result {
-        .failure(LocalFeedImageLoader.Error.failed)
+        .failure(LocalFeedImageDataLoader.LoadError.failed)
     }
     
     private func notFound() -> FeedImageDataLoader.Result {
-        .failure(LocalFeedImageLoader.Error.notFound)
+        .failure(LocalFeedImageDataLoader.LoadError.notFound)
     }
     
-    private func expect(_ sut: LocalFeedImageLoader, toCompleteWith expectedResult: FeedImageDataLoader.Result, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
+    private func expect(_ sut: LocalFeedImageDataLoader, toCompleteWith expectedResult: FeedImageDataLoader.Result, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
         let exp = expectation(description: "wait for completion")
         let url = anyURL()
         
@@ -103,7 +103,7 @@ class LocalFeedImageDataLoaderTests: XCTestCase {
             switch (receivedResult, expectedResult) {
             case (.success(let receivedResult), .success(let expectedResult)):
                 XCTAssertEqual(receivedResult, expectedResult, file: file, line: line)
-            case (.failure(let receivedResult as LocalFeedImageLoader.Error), .failure(let expectedResult as LocalFeedImageLoader.Error)):
+            case (.failure(let receivedResult as LocalFeedImageDataLoader.LoadError), .failure(let expectedResult as LocalFeedImageDataLoader.LoadError)):
                 XCTAssertEqual(receivedResult, expectedResult, file: file, line: line)
             default:
                 XCTFail("Expected result \(expectedResult), got \(receivedResult) instead", file: file, line: line)
@@ -115,9 +115,9 @@ class LocalFeedImageDataLoaderTests: XCTestCase {
         wait(for: [exp], timeout: 1)
     }
     
-    private func makeSUT() -> (LocalFeedImageLoader, StoreSpy) {
+    private func makeSUT() -> (LocalFeedImageDataLoader, StoreSpy) {
         let spy = StoreSpy()
-        let sut = LocalFeedImageLoader(store: spy)
+        let sut = LocalFeedImageDataLoader(store: spy)
         trackForMemoryLeaks(spy)
         trackForMemoryLeaks(sut)
         return (sut, spy)
@@ -130,23 +130,23 @@ class LocalFeedImageDataLoaderTests: XCTestCase {
         }
         
         private(set) var receivedMessages = [Message]()
-        private var completions = [(FeedImageDataStore.Result) -> Void]()
+        private var retrievalCompletions = [(FeedImageDataStore.RetrievalResult) -> Void]()
         
         func insert(_ data: Data, for url: URL, completion: @escaping (FeedImageDataStore.InsertionResult) -> Void) {
             receivedMessages.append(.insert(data: data, for: url))
         }
         
-        func retrieve(dataForURL url: URL, completion: @escaping (FeedImageDataStore.Result) -> Void) {
+        func retrieve(dataForURL url: URL, completion: @escaping (FeedImageDataStore.RetrievalResult) -> Void) {
             receivedMessages.append(.retrieve(dataFor: url))
-            completions.append(completion)
+            retrievalCompletions.append(completion)
         }
         
-        func complete(withError error: Error, at index: Int = 0) {
-            completions[index](.failure(error))
+        func completeRetrieval(with error: Error, at index: Int = 0) {
+            retrievalCompletions[index](.failure(error))
         }
         
-        func complete(with data: Data?, at index: Int = 0) {
-            completions[index](.success(data))
+        func completeRetrieval(with data: Data?, at index: Int = 0) {
+            retrievalCompletions[index](.success(data))
         }
     }
 }
