@@ -11,18 +11,18 @@ import XCTest
 class CoreDataFeedImageDataStoreTests: XCTestCase {
 
     func test_retrieveImageData_deliversNotFoundWhenEmpty() {
-//        let sut = makeSUT()
-//
-//        expect(sut, toCompleteWith: notFound(), for: anyURL())
+        let sut = makeSUT()
+
+        expect(sut, toCompleteWith: notFound(), for: anyURL())
     }
     
     func test_retrieveImageData_deliversNotFoundWhenStoreDataURLDoesNotMatch() {
-//        let sut = makeSUT()
-//        let url = anyURL()
-//        let nonMatchingURL = URL(string: "https://not-matching-url.com")!
-//        insert(anyData(), for: url, into: sut)
-//        
-//        expect(sut, toCompleteWith: notFound(), for: nonMatchingURL)
+        let sut = makeSUT()
+        let url = anyURL()
+        let nonMatchingURL = URL(string: "https://not-matching-url.com")!
+        insert(anyData(), for: url, into: sut)
+
+        expect(sut, toCompleteWith: notFound(), for: nonMatchingURL)
     }
     
     func test_retrieveImageData_deliversFoundDataWhenThereIsAStoredImageMatchingURL() {
@@ -33,6 +33,18 @@ class CoreDataFeedImageDataStoreTests: XCTestCase {
         insert(storedData, for: matchingURL, into: sut)
         
         expect(sut, toCompleteWith: found(storedData), for: matchingURL)
+    }
+    
+    func test_retrieveImageData_deliversLastInsertedValue() {
+        let sut = makeSUT()
+        let firstStoredData = Data("first".utf8)
+        let lastStoredData = Data("last".utf8)
+        let url = URL(string: "http://a-url.com")!
+        
+        insert(firstStoredData, for: url, into: sut)
+        insert(lastStoredData, for: url, into: sut)
+        
+        expect(sut, toCompleteWith: found(lastStoredData), for: url)
     }
     
     //MARK: - Helpers
@@ -79,7 +91,7 @@ class CoreDataFeedImageDataStoreTests: XCTestCase {
     
     private func expect(_ sut: CoreDataFeedStore, toCompleteWith expectedResult: FeedImageDataStore.RetrievalResult, for url: URL, file: StaticString = #file, line: UInt = #line) {
         let exp = expectation(description: "wait for completion")
-        sut.retrieve(dataForURL: anyURL()) { receivedResult in
+        sut.retrieve(dataForURL: url) { receivedResult in
             switch (expectedResult, receivedResult) {
             case (.success(let expectedData), .success(let receivedData)):
                 XCTAssertEqual(expectedData, receivedData, file: file, line: line)
