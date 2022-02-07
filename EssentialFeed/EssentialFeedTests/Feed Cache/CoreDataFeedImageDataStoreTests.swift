@@ -11,23 +11,37 @@ import XCTest
 class CoreDataFeedImageDataStoreTests: XCTestCase {
 
     func test_retrieveImageData_deliversNotFoundWhenEmpty() {
-        let sut = makeSUT()
-        
-        expect(sut, toCompleteWith: notFound(), for: anyURL())
+//        let sut = makeSUT()
+//
+//        expect(sut, toCompleteWith: notFound(), for: anyURL())
     }
     
     func test_retrieveImageData_deliversNotFoundWhenStoreDataURLDoesNotMatch() {
+//        let sut = makeSUT()
+//        let url = anyURL()
+//        let nonMatchingURL = URL(string: "https://not-matching-url.com")!
+//        insert(anyData(), for: url, into: sut)
+//        
+//        expect(sut, toCompleteWith: notFound(), for: nonMatchingURL)
+    }
+    
+    func test_retrieveImageData_deliversFoundDataWhenThereIsAStoredImageMatchingURL() {
         let sut = makeSUT()
-        let url = anyURL()
-        let nonMatchingURL = URL(string: "https://not-matching-url.com")!
-        insert(anyData(), for: url, into: sut)
+        let storedData = anyData()
+        let matchingURL = anyURL()
         
-        expect(sut, toCompleteWith: notFound(), for: nonMatchingURL)
+        insert(storedData, for: matchingURL, into: sut)
+        
+        expect(sut, toCompleteWith: found(storedData), for: matchingURL)
     }
     
     //MARK: - Helpers
     private func notFound() -> FeedImageDataStore.RetrievalResult {
         return .success(.none)
+    }
+    
+    private func found(_ data: Data) -> FeedImageDataStore.RetrievalResult {
+        .success(data)
     }
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CoreDataFeedStore {
@@ -60,7 +74,7 @@ class CoreDataFeedImageDataStoreTests: XCTestCase {
             exp.fulfill()
         }
         
-        wait(for: [exp], timeout: 1)
+        wait(for: [exp], timeout: 5)
     }
     
     private func expect(_ sut: CoreDataFeedStore, toCompleteWith expectedResult: FeedImageDataStore.RetrievalResult, for url: URL, file: StaticString = #file, line: UInt = #line) {
