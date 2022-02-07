@@ -5,7 +5,7 @@
 //  Created by Roman Bozhenko on 30.01.2022.
 //
 
-protocol FeedImageDataStore {
+public protocol FeedImageDataStore {
     typealias RetrievalResult = Swift.Result<Data?, Error>
     typealias InsertionResult = Swift.Result<Void, Error>
     
