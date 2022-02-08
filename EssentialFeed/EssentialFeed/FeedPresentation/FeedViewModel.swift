@@ -5,6 +5,6 @@
 //  Created by Roman Bozhenko on 15.01.2022.
 //
 
-struct FeedViewModel {
+public struct FeedViewModel {
     let feed: [FeedImage]
 }

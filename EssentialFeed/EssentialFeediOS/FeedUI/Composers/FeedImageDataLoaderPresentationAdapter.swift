@@ -20,7 +20,7 @@ final class FeedImageDataLoaderPresentationAdapter<View: FeedImageViewProtocol, 
     }
     
     func didRequestImage() {
-        presenter?.didStartLoadingImageData(for: model)
+        presenter?.didStartLoadingData(for: model)
         
         let model = self.model
         task = imageLoader.loadImageData(from: model.url, completion: { [weak presenter] result in

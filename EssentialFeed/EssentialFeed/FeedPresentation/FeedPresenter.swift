@@ -5,30 +5,30 @@
 //  Created by Roman Bozhenko on 15.01.2022.
 //
 
-protocol FeedViewProtocol {
+public protocol FeedViewProtocol {
     func display(_ viewModel: FeedViewModel)
 }
 
-protocol LoadingViewProtocol {
+public protocol LoadingViewProtocol {
     func display(_ viewModel: FeedLoadingViewModel)
 }
 
-protocol FeedErrorViewProtocol {
+public protocol FeedErrorViewProtocol {
     func display(_ viewModel: FeedErrorViewModel)
 }
 
-final class FeedPresenter {
+public final class FeedPresenter {
     private let errorView: FeedErrorViewProtocol
     private let loadingView: LoadingViewProtocol
     private let feedView: FeedViewProtocol
     
-    init(feedView: FeedViewProtocol, loadingView: LoadingViewProtocol, errorView: FeedErrorViewProtocol) {
+    public init(feedView: FeedViewProtocol, loadingView: LoadingViewProtocol, errorView: FeedErrorViewProtocol) {
         self.feedView = feedView
         self.loadingView = loadingView
         self.errorView = errorView
     }
     
-    static var title: String {
+    public static var title: String {
         NSLocalizedString(
             "feed_view_title",
             tableName: "Feed",
@@ -44,17 +44,17 @@ final class FeedPresenter {
             comment: "Error message displayed when we can't load the image feed from the server")
     }
     
-    func didStartLoadingFeed() {
+    public func didStartLoadingFeed() {
         errorView.display(.noError)
         loadingView.display(FeedLoadingViewModel(isLoading: true))
     }
     
-    func didFinishLoading(with feed: [FeedImage]) {
+    public func didFinishLoading(with feed: [FeedImage]) {
         feedView.display(FeedViewModel(feed: feed))
         loadingView.display(FeedLoadingViewModel(isLoading: false))
     }
     
-    func didFinishLoading(with error: Error) {
+    public func didFinishLoading(with error: Error) {
         errorView.display(.error(message: feedLoadError))
         loadingView.display(FeedLoadingViewModel(isLoading: false))
     }

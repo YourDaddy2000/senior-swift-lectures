@@ -21,9 +21,9 @@ final class FeedLoaderPresentationAdapter: FeedViewControllerDelegate {
         feedLoader.load { [weak presenter] result in
             switch result {
             case .success(let feed):
-                presenter?.didEndLoadingFeed(with: feed)
+                presenter?.didFinishLoading(with: feed)
             case .failure(let error):
-                presenter?.didEndLoadingFeed(with: error)
+                presenter?.didFinishLoading(with: error)
             }
         }
     }

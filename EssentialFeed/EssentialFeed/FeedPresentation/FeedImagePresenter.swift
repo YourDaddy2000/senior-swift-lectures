@@ -5,21 +5,22 @@
 //  Created by Roman Bozhenko on 15.01.2022.
 //
 
-protocol FeedImageViewProtocol {
+public protocol FeedImageViewProtocol {
     associatedtype Image
     
     func display(_ viewModel: FeedImageViewModel<Image>)
 }
 
-final class FeedImagePresenter<View: FeedImageViewProtocol, Image> where View.Image == Image {
+public final class FeedImagePresenter<View: FeedImageViewProtocol, Image> where View.Image == Image {
     let view: View
     let imageTransformer: (Data) -> Image?
-    init(view: View, imageTransformer: @escaping (Data) -> Image?) {
+    
+    public init(view: View, imageTransformer: @escaping (Data) -> Image?) {
         self.view = view
         self.imageTransformer = imageTransformer
     }
     
-    func didStartLoadingData(for model: FeedImage) {
+    public func didStartLoadingData(for model: FeedImage) {
         view.display(FeedImageViewModel(
             description: model.description,
             location: model.location,
@@ -29,7 +30,7 @@ final class FeedImagePresenter<View: FeedImageViewProtocol, Image> where View.Im
         )
     }
     
-    func didFinishLoadingImageData(with data: Data, for model: FeedImage) {
+    public func didFinishLoadingImageData(with data: Data, for model: FeedImage) {
         let image = imageTransformer(data)
         view.display(FeedImageViewModel(
             description: model.description,
@@ -39,7 +40,7 @@ final class FeedImagePresenter<View: FeedImageViewProtocol, Image> where View.Im
             shouldRetry: image == nil))
     }
     
-    func didFinishLoadingImageData(with error: Error, for model: FeedImage) {
+    public func didFinishLoadingImageData(with error: Error, for model: FeedImage) {
         view.display(FeedImageViewModel(
             description: model.description,
             location: model.location,
