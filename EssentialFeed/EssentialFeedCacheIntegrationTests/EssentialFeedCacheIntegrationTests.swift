@@ -82,7 +82,29 @@ class EssentialFeedCacheIntegrationTests: XCTestCase {
         expect(imageLoaderToPerformLoad, toLoad: lastImageData, for: image.url)
     }
     
+    func test_validateFeedCache_doesNotDeleteRecentlySavedData() {
+        let feedLoaderToPerformSave = makeFeedLoader()
+        let feedLoaderToPerformValidation = makeFeedLoader()
+        let feed = uniqueImageFeed.models
+        
+        save(feed, with: feedLoaderToPerformSave)
+        validateCache(with: feedLoaderToPerformValidation)
+        
+        expect(feedLoaderToPerformSave, toLoad: feed)
+    }
+    
     //MARK: - Helpers
+    
+    private func validateCache(with loader: LocalFeedLoader, file: StaticString = #file, line: UInt = #line) {
+        let saveExp = expectation(description: "wait for save completion")
+        loader.validateCache { result in
+            if case .failure(let error) = result {
+                XCTFail("Expected to validate feed successfully, got error: \(error)", file: file, line: line)
+            }
+            saveExp.fulfill()
+        }
+        wait(for: [saveExp], timeout: 1)
+    }
     
     private func save(_ data: Data, for url: URL, with loader: LocalFeedImageDataLoader, file: StaticString = #file, line: UInt = #line) {
         let saveExp = expectation(description: "wait for save completion")
