@@ -26,7 +26,7 @@ class FeedStoreSpy: FeedStoreProtocol {
         receivedMessages.append(.deleteCachedFeed)
     }
     
-    func complete(with error: Error, at index: Int = 0) {
+    func completeDeletion(with error: Error, at index: Int = 0) {
         deletionCompletions[index](.failure(error))
     }
     
