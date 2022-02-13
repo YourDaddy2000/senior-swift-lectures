@@ -41,7 +41,7 @@ class EssentialFeedApiEndToEndTests: XCTestCase {
     }
     
     // MARK: - Helpers
-    private func getFeedImageDataResult(file: StaticString = #file, line: UInt = #line) -> FeedImageDataLoader.Result {
+    private func getFeedImageDataResult(file: StaticString = #file, line: UInt = #line) -> FeedImageDataLoader.Result? {
         let testServerURL = feedTestServerURL.appendingPathComponent("73A7F70C-75DA-4C2E-B5A3-EED40DC53AA6/image")
         let loader = RemoteFeedImageDataLoader(client: ephemeralClient())
         trackForMemoryLeaks(loader)
@@ -54,7 +54,7 @@ class EssentialFeedApiEndToEndTests: XCTestCase {
             exp.fulfill()
         })
         
-        wait(for: [exp], timeout: 1)
+        wait(for: [exp], timeout: 5)
         return receivedResult
     }
     
