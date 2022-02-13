@@ -14,9 +14,9 @@
 		84BF26AD27B5B060003B3689 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84BF26AC27B5B060003B3689 /* Assets.xcassets */; };
 		84BF26B027B5B060003B3689 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84BF26AE27B5B060003B3689 /* LaunchScreen.storyboard */; };
 		84BF26BB27B5B275003B3689 /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84BF26B927B5B275003B3689 /* EssentialFeed.framework */; };
-		84BF26BC27B5B275003B3689 /* EssentialFeed.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 84BF26B927B5B275003B3689 /* EssentialFeed.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		84BF26BC27B5B275003B3689 /* EssentialFeed.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 84BF26B927B5B275003B3689 /* EssentialFeed.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84BF26BD27B5B275003B3689 /* EssentialFeediOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84BF26BA27B5B275003B3689 /* EssentialFeediOS.framework */; };
-		84BF26BE27B5B275003B3689 /* EssentialFeediOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 84BF26BA27B5B275003B3689 /* EssentialFeediOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		84BF26BE27B5B275003B3689 /* EssentialFeediOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 84BF26BA27B5B275003B3689 /* EssentialFeediOS.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */

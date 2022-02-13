@@ -18,7 +18,7 @@ final class FeedViewAdapter: FeedViewProtocol {
         self.loader = loader
     }
     
-    func display(_ viewModel: FeedViewModel) {
+    func display(_ viewModel: EssentialFeed.FeedViewModel) {
         controller?.tableModel = viewModel.feed.map { model in
             let adapter = FeedImageDataLoaderPresentationAdapter<WeakRefVirtualProxy<FeedImageCellController>, UIImage>(model: model, imageLoader: loader)
             let view = FeedImageCellController(delegate: adapter)

@@ -31,11 +31,11 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
         delegate?.didRequestFeedRefresh()
     }
     
-    public func display(_ viewModel: FeedLoadingViewModel) {
+    public func display(_ viewModel: EssentialFeed.FeedLoadingViewModel) {
         viewModel.isLoading ? refreshControl?.beginRefreshing() : refreshControl?.endRefreshing()
     }
     
-    public func display(_ viewModel: FeedErrorViewModel) {
+    public func display(_ viewModel: EssentialFeed.FeedErrorViewModel) {
         errorView?.errorMessage = viewModel.message
     }
     

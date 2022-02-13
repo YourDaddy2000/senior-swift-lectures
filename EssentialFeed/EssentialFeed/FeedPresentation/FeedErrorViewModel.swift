@@ -6,7 +6,7 @@
 //
 
 public struct FeedErrorViewModel {
-    let message: String?
+    public let message: String?
     
     static var noError: FeedErrorViewModel {
         FeedErrorViewModel(message: nil)

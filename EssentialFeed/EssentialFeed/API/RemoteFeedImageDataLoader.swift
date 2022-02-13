@@ -5,10 +5,10 @@
 //  Created by Roman Bozhenko on 23.01.2022.
 //
 
-final class RemoteFeedImageDataLoader: FeedImageDataLoader {
+public final class RemoteFeedImageDataLoader: FeedImageDataLoader {
     private let client: HTTPClient
     
-    init(client: HTTPClient) {
+    public init(client: HTTPClient) {
         self.client = client
     }
     
@@ -39,7 +39,7 @@ final class RemoteFeedImageDataLoader: FeedImageDataLoader {
         }
     }
     
-    func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
+    public func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
         let task = HTTPTaskWrapper(completion: completion)
         
         task.wrapped = client.get(from: url) { [weak self] result in
