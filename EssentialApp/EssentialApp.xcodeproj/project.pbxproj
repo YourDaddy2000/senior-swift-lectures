@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8458EE0727BC47BE00287759 /* FeedLoaderWithFallbackCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8458EE0627BC47BE00287759 /* FeedLoaderWithFallbackCompositeTests.swift */; };
 		84BF26A427B5B060003B3689 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF26A327B5B060003B3689 /* AppDelegate.swift */; };
 		84BF26A627B5B060003B3689 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF26A527B5B060003B3689 /* SceneDelegate.swift */; };
 		84BF26A827B5B060003B3689 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF26A727B5B060003B3689 /* ViewController.swift */; };
@@ -45,6 +46,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8458EE0627BC47BE00287759 /* FeedLoaderWithFallbackCompositeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderWithFallbackCompositeTests.swift; sourceTree = "<group>"; };
+		8458EE0927BC4B9100287759 /* EssentialAppTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EssentialAppTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		84BF26A027B5B060003B3689 /* EssentialApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EssentialApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84BF26A327B5B060003B3689 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84BF26A527B5B060003B3689 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +126,8 @@
 		84EC7B1027B96500008D0923 /* EssentialAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				8458EE0927BC4B9100287759 /* EssentialAppTests-Bridging-Header.h */,
+				8458EE0627BC47BE00287759 /* FeedLoaderWithFallbackCompositeTests.swift */,
 			);
 			path = EssentialAppTests;
 			sourceTree = "<group>";
@@ -181,6 +186,7 @@
 					};
 					84EC7B0E27B96500008D0923 = {
 						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1310;
 						TestTargetID = 84BF269F27B5B060003B3689;
 					};
 				};
@@ -239,6 +245,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8458EE0727BC47BE00287759 /* FeedLoaderWithFallbackCompositeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +314,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -368,6 +376,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -395,6 +404,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 266M4YU92D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EssentialApp/Info.plist;
@@ -423,6 +433,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 266M4YU92D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EssentialApp/Info.plist;
@@ -448,10 +459,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 266M4YU92D;
 				GENERATE_INFOPLIST_FILE = YES;
+				"HEADER_SEARCH_PATHS[arch=*]" = "/Users/admin/Documents/GitHub/senior-swift-lectures/EssentialApp/EssentialAppTests/EssentialAppTests-Bridging-Header.h";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -461,6 +475,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = qweqwe.EssentialAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "EssentialAppTests/EssentialAppTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EssentialApp.app/EssentialApp";
@@ -471,10 +487,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 266M4YU92D;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "/Users/admin/Documents/GitHub/senior-swift-lectures/EssentialApp/EssentialAppTests/EssentialAppTests-Bridging-Header.h";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -484,6 +503,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = qweqwe.EssentialAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "EssentialAppTests/EssentialAppTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EssentialApp.app/EssentialApp";
