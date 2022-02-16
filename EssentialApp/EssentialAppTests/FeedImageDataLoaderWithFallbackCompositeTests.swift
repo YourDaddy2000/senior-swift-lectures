@@ -10,6 +10,7 @@ import EssentialFeed
 
 public final class FeedImageDataLoaderWithFallbackComposite: FeedImageDataLoader {
     private let primary: FeedImageDataLoader
+    private let fallback: FeedImageDataLoader
     
     private class Task: FeedImageDataLoaderTask {
         func cancel() {
@@ -19,10 +20,19 @@ public final class FeedImageDataLoaderWithFallbackComposite: FeedImageDataLoader
     
     public init(primary: FeedImageDataLoader, fallback: FeedImageDataLoader) {
         self.primary = primary
+        self.fallback = fallback
     }
     
     public func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
-        _ = primary.loadImageData(from: url, completion: completion)
+        _ = primary.loadImageData(from: url) { [weak self] result in
+            switch result {
+            case .success(let success):
+                break
+                
+            case .failure(let failure):
+                _ = self?.fallback.loadImageData(from: url, completion: completion)
+            }
+        }
         return Task()
     }
 }
@@ -44,6 +54,18 @@ class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
         
         XCTAssertTrue(primaryLoader.loadedURLs == [url])
         XCTAssertTrue(fallbackLoader.loadedURLs.isEmpty)
+    }
+    
+    func test_loadImageData_loadsFromFallbackOnPrimaryLoaderFailure() {
+        let url = anyURL
+        let (sut, primaryLoader, fallbackLoader) = makeSUT()
+        
+        _ = sut.loadImageData(from: url) { _ in }
+        
+        primaryLoader.complete(with: anyNSError())
+        
+        XCTAssertTrue(primaryLoader.loadedURLs == [url])
+        XCTAssertTrue(fallbackLoader.loadedURLs == [url])
     }
     
     //MARK: - Helpers
@@ -74,6 +96,10 @@ class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
         func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
             messages.append((url, completion))
             return Task()
+        }
+        
+        func complete(with error: NSError, at index: Int = 0) {
+            messages[index].completion(.failure(error))
         }
     }
 }
