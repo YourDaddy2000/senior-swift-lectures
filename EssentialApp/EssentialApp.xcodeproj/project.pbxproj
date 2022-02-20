@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		842CCFE427C28B93007ED230 /* FeedLoaderCacheDecoratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842CCFE327C28B93007ED230 /* FeedLoaderCacheDecoratorTests.swift */; };
 		842CCFE727C290D8007ED230 /* LoaderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842CCFE627C290D8007ED230 /* LoaderStub.swift */; };
+		842CCFE927C292BD007ED230 /* XCTestCase+FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842CCFE827C292BD007ED230 /* XCTestCase+FeedLoader.swift */; };
 		8458EE0727BC47BE00287759 /* FeedLoaderWithFallbackCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8458EE0627BC47BE00287759 /* FeedLoaderWithFallbackCompositeTests.swift */; };
 		8458EE0B27BC50F700287759 /* FeedLoaderWithFallbackComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8458EE0A27BC50F700287759 /* FeedLoaderWithFallbackComposite.swift */; };
 		8458EE0D27BC517D00287759 /* FeedImageDataLoaderWithFallbackCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8458EE0C27BC517D00287759 /* FeedImageDataLoaderWithFallbackCompositeTests.swift */; };
@@ -54,6 +55,7 @@
 /* Begin PBXFileReference section */
 		842CCFE327C28B93007ED230 /* FeedLoaderCacheDecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderCacheDecoratorTests.swift; sourceTree = "<group>"; };
 		842CCFE627C290D8007ED230 /* LoaderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderStub.swift; sourceTree = "<group>"; };
+		842CCFE827C292BD007ED230 /* XCTestCase+FeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FeedLoader.swift"; sourceTree = "<group>"; };
 		8458EE0627BC47BE00287759 /* FeedLoaderWithFallbackCompositeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderWithFallbackCompositeTests.swift; sourceTree = "<group>"; };
 		8458EE0927BC4B9100287759 /* EssentialAppTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EssentialAppTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		8458EE0A27BC50F700287759 /* FeedLoaderWithFallbackComposite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderWithFallbackComposite.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				8458EE1227BD987E00287759 /* Extension+XCTest.swift */,
+				842CCFE827C292BD007ED230 /* XCTestCase+FeedLoader.swift */,
 				842CCFE627C290D8007ED230 /* LoaderStub.swift */,
 			);
 			path = Helpers;
@@ -276,6 +279,7 @@
 				842CCFE727C290D8007ED230 /* LoaderStub.swift in Sources */,
 				8458EE1327BD987E00287759 /* Extension+XCTest.swift in Sources */,
 				8458EE0D27BC517D00287759 /* FeedImageDataLoaderWithFallbackCompositeTests.swift in Sources */,
+				842CCFE927C292BD007ED230 /* XCTestCase+FeedLoader.swift in Sources */,
 				8458EE0727BC47BE00287759 /* FeedLoaderWithFallbackCompositeTests.swift in Sources */,
 				842CCFE427C28B93007ED230 /* FeedLoaderCacheDecoratorTests.swift in Sources */,
 			);
