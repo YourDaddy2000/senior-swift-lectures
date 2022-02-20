@@ -63,7 +63,7 @@ extension LocalFeedImageDataLoader: FeedImageDataLoader {
     }
 }
 
-extension LocalFeedImageDataLoader {
+extension LocalFeedImageDataLoader: FeedImageDataCache {
     
     public typealias SaveResult = Result<Void, Swift.Error>
     
