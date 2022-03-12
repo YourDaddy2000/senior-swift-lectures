@@ -13,7 +13,7 @@ public protocol FeedImageDataStore {
     func retrieve(dataForURL url: URL, completion: @escaping (RetrievalResult) -> Void)
 }
 
-final class LocalFeedImageDataLoader {
+public final class LocalFeedImageDataLoader {
     private let store: FeedImageDataStore
     
     public init(store: FeedImageDataStore) {
