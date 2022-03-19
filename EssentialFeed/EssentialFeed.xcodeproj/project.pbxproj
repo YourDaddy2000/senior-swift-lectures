@@ -557,7 +557,8 @@
 				841E017E278214F7008ABA17 /* WeakRefVirtualProxy.swift */,
 				841E018027821545008ABA17 /* FeedImageDataLoaderPresentationAdapter.swift */,
 			);
-			path = Composers;
+			name = Composers;
+			path = ../../../EssentialApp/EssentialApp/Composers;
 			sourceTree = "<group>";
 		};
 		8437E08E276CB53300796422 /* FeedUI */ = {
