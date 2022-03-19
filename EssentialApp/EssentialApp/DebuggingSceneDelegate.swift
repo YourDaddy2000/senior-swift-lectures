@@ -64,16 +64,7 @@ private class DebuggingHTTPClient: HTTPClient {
     }
     
     private func makeImageData() -> Data {
-        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
-        UIGraphicsBeginImageContext(rect.size)
-        let context = UIGraphicsGetCurrentContext()!
-        context.setFillColor(UIColor.red.cgColor)
-        context.fill(rect)
-        
-        let img = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return img!.pngData()!
+        UIImage.make(withColor: .red)
     }
     
     private func makeFeedData() -> Data {
@@ -84,3 +75,18 @@ private class DebuggingHTTPClient: HTTPClient {
     }
 }
 #endif
+
+extension UIImage {
+    static func make(withColor color: UIColor) -> Data {
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()!
+        context.setFillColor(color.cgColor)
+        context.fill(rect)
+        
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return img!.pngData()!
+    }
+}
