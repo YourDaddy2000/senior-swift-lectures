@@ -32,8 +32,8 @@ public final class FeedImageCellController: FeedImageViewProtocol {
     }
     
     func cancelLoad() {
-        releaseCellFromMemoryForReuse()
         delegate.didCancelImageRequest()
+        releaseCellFromMemoryForReuse()
     }
     
     public func display(_ model: FeedImageViewModel<UIImage>) {

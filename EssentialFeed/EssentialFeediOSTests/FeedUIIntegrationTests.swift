@@ -238,9 +238,11 @@ class FeedUIIntegrationTests: XCTestCase {
         loader.completeFeedLoading(with: [image0, image1])
         XCTAssertEqual(loader.canceledImageURLs, [], "Expected no cancelled image URL requests until image is not near visible")
         
+        sut.simulateFeedImageViewVisible(at: 0)
         sut.simulateFeedImageViewNotNearVisible(at: 0)
         XCTAssertEqual(loader.canceledImageURLs, [image0.url], "Expected first cancelled image URL request once first image is not near visible anymore")
         
+        sut.simulateFeedImageViewVisible(at: 1)
         sut.simulateFeedImageViewNotNearVisible(at: 1)
         XCTAssertEqual(loader.canceledImageURLs, [image0.url, image1.url], "Expected second cancelled image URL request once second image is not near visible anymore")
     }
@@ -297,6 +299,20 @@ class FeedUIIntegrationTests: XCTestCase {
         
         sut.simulateUserInitiatedFeedReload()
         XCTAssertEqual(sut.errorMessage, nil)
+    }
+    
+    func test_loadFeedCompletion_rendersSuccessfullyLoadedEmptyFeedAfterNonEmptyFeed() {
+        let image0 = makeImage()
+        let image1 = makeImage()
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeFeedLoading(with: [image0, image1], at: 0)
+        assertThat(sut, isRendering: [image0, image1])
+        
+        sut.simulateUserInitiatedFeedReload()
+        loader.completeFeedLoading(with: [], at: 0)
+        assertThat(sut, isRendering: [])
     }
     
     //MARK: - Helpers
