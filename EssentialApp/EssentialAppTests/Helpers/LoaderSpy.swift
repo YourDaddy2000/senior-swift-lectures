@@ -8,7 +8,27 @@
 import Foundation
 import EssentialFeed
 
-final class LoaderSpy: FeedImageDataLoader {
+final class LoaderSpy: FeedLoader, FeedImageDataLoader {
+//          FeedLoader
+    private var feedRequests = [(FeedLoader.Result) -> Void]()
+    var loadFeedCounts: Int {
+        feedRequests.count
+    }
+    
+    func load(completion: @escaping (FeedLoader.Result) -> Void) {
+        feedRequests.append(completion)
+    }
+    
+    func completeFeedLoading(with feed: [FeedImage] = [], at index: Int = 0) {
+        feedRequests[index](.success(feed))
+    }
+    
+    func completeFeedLoadingWithError(at index: Int) {
+        let error = NSError(domain: "an error", code: -1)
+        feedRequests[index](.failure(error))
+    }
+    
+//        FeedImageDataLoader
     private var messages = [(url: URL, completion: (FeedImageDataLoader.Result) -> Void)]()
     
     private(set) var cancelledURLs = [URL]()
@@ -17,15 +37,16 @@ final class LoaderSpy: FeedImageDataLoader {
         messages.map { $0.url }
     }
     
-    private struct Task: FeedImageDataLoaderTask {
-        let callBack: () -> Void
-        
-        func cancel() { callBack() }
+    private struct TaskSpy: FeedImageDataLoaderTask {
+        let cancelCallBack: () -> Void
+        func cancel() {
+            cancelCallBack()
+        }
     }
     
     func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
         messages.append((url, completion))
-        return Task { [weak self] in self?.cancelledURLs.append(url) }
+        return TaskSpy { [weak self] in self?.cancelledURLs.append(url) }
     }
     
     func complete(with error: NSError, at index: Int = 0) {

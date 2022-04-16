@@ -26,6 +26,10 @@
 		84B72282280B18CE00998DB7 /* FeedViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B72279280B18A600998DB7 /* FeedViewAdapter.swift */; };
 		84B72283280B18CE00998DB7 /* FeedLoaderPresentationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B7227A280B18A600998DB7 /* FeedLoaderPresentationAdapter.swift */; };
 		84B72284280B18CE00998DB7 /* WeakRefVirtualProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B7227C280B18A600998DB7 /* WeakRefVirtualProxy.swift */; };
+		84B72290280B200200998DB7 /* FeedUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B7228D280B200200998DB7 /* FeedUIIntegrationTests.swift */; };
+		84B72292280B20A100998DB7 /* FeedViewControllerTests+Assertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B72291280B20A100998DB7 /* FeedViewControllerTests+Assertions.swift */; };
+		84B72294280B218700998DB7 /* FeedViewControllerTests+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B72293280B218700998DB7 /* FeedViewControllerTests+Localization.swift */; };
+		84B72296280B219400998DB7 /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B72295280B219400998DB7 /* Extension+UIView.swift */; };
 		84BF26A427B5B060003B3689 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF26A327B5B060003B3689 /* AppDelegate.swift */; };
 		84BF26A627B5B060003B3689 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF26A527B5B060003B3689 /* SceneDelegate.swift */; };
 		84BF26A827B5B060003B3689 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF26A727B5B060003B3689 /* ViewController.swift */; };
@@ -92,6 +96,10 @@
 		84B7227B280B18A600998DB7 /* MainQueueDispatchDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainQueueDispatchDecorator.swift; sourceTree = "<group>"; };
 		84B7227C280B18A600998DB7 /* WeakRefVirtualProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakRefVirtualProxy.swift; sourceTree = "<group>"; };
 		84B7227D280B18A600998DB7 /* FeedImageDataLoaderPresentationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataLoaderPresentationAdapter.swift; sourceTree = "<group>"; };
+		84B7228D280B200200998DB7 /* FeedUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUIIntegrationTests.swift; sourceTree = "<group>"; };
+		84B72291280B20A100998DB7 /* FeedViewControllerTests+Assertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedViewControllerTests+Assertions.swift"; sourceTree = "<group>"; };
+		84B72293280B218700998DB7 /* FeedViewControllerTests+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedViewControllerTests+Localization.swift"; sourceTree = "<group>"; };
+		84B72295280B219400998DB7 /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
 		84BF26A027B5B060003B3689 /* EssentialApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EssentialApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84BF26A327B5B060003B3689 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84BF26A527B5B060003B3689 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -136,6 +144,9 @@
 		842CCFE527C290A1007ED230 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				84B72295280B219400998DB7 /* Extension+UIView.swift */,
+				84B72293280B218700998DB7 /* FeedViewControllerTests+Localization.swift */,
+				84B72291280B20A100998DB7 /* FeedViewControllerTests+Assertions.swift */,
 				84C4032627E646CB0071F7F2 /* UIControl+TestHelpers.swift */,
 				84C4032427E646B80071F7F2 /* FeedImageCell+TestHelpers.swift */,
 				84C4032C27E72FD50071F7F2 /* HTTPClientStub.swift */,
@@ -217,6 +228,7 @@
 				8458EE0927BC4B9100287759 /* EssentialAppTests-Bridging-Header.h */,
 				842CCFE527C290A1007ED230 /* Helpers */,
 				8458EE0627BC47BE00287759 /* FeedLoaderWithFallbackCompositeTests.swift */,
+				84B7228D280B200200998DB7 /* FeedUIIntegrationTests.swift */,
 				842CCFE327C28B93007ED230 /* FeedLoaderCacheDecoratorTests.swift */,
 				842CCFEE27C29ACA007ED230 /* FeedImageDataLoaderCacheDecoratorTests.swift */,
 				84C4031E27E634590071F7F2 /* FeedAcceptanceTests.swift */,
@@ -353,14 +365,18 @@
 				842CCFF127C29BCC007ED230 /* XCTestCase+FeedImageDataLoader.swift in Sources */,
 				84C4032F27E730550071F7F2 /* InMemoryFeedStore.swift in Sources */,
 				842CCFEF27C29ACA007ED230 /* FeedImageDataLoaderCacheDecoratorTests.swift in Sources */,
+				84B72290280B200200998DB7 /* FeedUIIntegrationTests.swift in Sources */,
 				84C4032727E646CB0071F7F2 /* UIControl+TestHelpers.swift in Sources */,
 				842CCFF327C29C95007ED230 /* LoaderSpy.swift in Sources */,
+				84B72294280B218700998DB7 /* FeedViewControllerTests+Localization.swift in Sources */,
 				84C4032127E646640071F7F2 /* FeedViewController+TestHelpers.swift in Sources */,
 				84C4032527E646B80071F7F2 /* FeedImageCell+TestHelpers.swift in Sources */,
 				84C4032327E6467B0071F7F2 /* UIImage+TestHelpers.swift in Sources */,
 				84C4032D27E72FD50071F7F2 /* HTTPClientStub.swift in Sources */,
 				8458EE1327BD987E00287759 /* Extension+XCTest.swift in Sources */,
 				8458EE0D27BC517D00287759 /* FeedImageDataLoaderWithFallbackCompositeTests.swift in Sources */,
+				84B72296280B219400998DB7 /* Extension+UIView.swift in Sources */,
+				84B72292280B20A100998DB7 /* FeedViewControllerTests+Assertions.swift in Sources */,
 				842CCFE927C292BD007ED230 /* XCTestCase+FeedLoader.swift in Sources */,
 				84C4031F27E634590071F7F2 /* FeedAcceptanceTests.swift in Sources */,
 				8458EE0727BC47BE00287759 /* FeedLoaderWithFallbackCompositeTests.swift in Sources */,
