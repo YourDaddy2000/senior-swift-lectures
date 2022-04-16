@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "18BA72D726ECFFDA00875F0E"
-               BuildableName = "EssentialFeedEndToEndAPITests.xctest"
-               BlueprintName = "EssentialFeedEndToEndAPITests"
+               BlueprintIdentifier = "18BA72EF26ED153100875F0E"
+               BuildableName = "EssentialFeedApiEndToEndTests.xctest"
+               BlueprintName = "EssentialFeedApiEndToEndTests"
                ReferencedContainer = "container:EssentialFeed.xcodeproj">
             </BuildableReference>
          </TestableReference>
