@@ -5,6 +5,7 @@
 //  Created by Roman Bozhenko on 15.12.2021.
 //
 import EssentialFeed
+import EssentialFeediOS
 import UIKit
 
 public enum FeedUIComposer {
