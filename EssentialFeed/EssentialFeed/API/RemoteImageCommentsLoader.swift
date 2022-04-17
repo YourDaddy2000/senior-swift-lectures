@@ -35,7 +35,7 @@ public final class RemoteImageCommentsLoader: FeedLoader {
     
     private static func map(_ data: Data, from response: HTTPURLResponse) -> Result {
         do {
-            let items = try FeedItemMapper.map(data, response: response)
+            let items = try ImageCommentsMapper.map(data, response: response)
             return .success(items.toModels())
         } catch {
             return .failure(error)
