@@ -10,7 +10,7 @@ import Combine
 import UIKit
 
 public enum FeedUIComposer {
-    public static func composeFeedViewController(feedLoader: @escaping () -> FeedLoader.Publisher, imageLoader: FeedImageDataLoader) -> FeedViewController {
+    public static func composeFeedViewController(feedLoader: @escaping () -> FeedLoader.Publisher, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) -> FeedViewController {
         let presentationAdapter = FeedLoaderPresentationAdapter {
             feedLoader().dispatchOnMainQueue()
         }
@@ -18,7 +18,9 @@ public enum FeedUIComposer {
         let feedController = makeWith(delegate: presentationAdapter, title: FeedPresenter.title)
         
         let presenter = FeedPresenter(
-            feedView: FeedViewAdapter(controller: feedController, loader: MainQueueDispatchDecorator(decoratee: imageLoader)),
+            feedView: FeedViewAdapter(
+                controller: feedController,
+                loader: { imageLoader($0).dispatchOnMainQueue() }),
             loadingView: WeakRefVirtualProxy(feedController),
             errorView: WeakRefVirtualProxy(feedController))
         presentationAdapter.presenter = presenter
