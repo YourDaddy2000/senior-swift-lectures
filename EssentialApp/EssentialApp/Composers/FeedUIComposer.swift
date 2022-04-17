@@ -4,13 +4,16 @@
 //
 //  Created by Roman Bozhenko on 15.12.2021.
 //
-import EssentialFeed
 import EssentialFeediOS
+import EssentialFeed
+import Combine
 import UIKit
 
 public enum FeedUIComposer {
-    public static func composeFeedViewController(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
-        let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: MainQueueDispatchDecorator(decoratee: feedLoader))
+    public static func composeFeedViewController(feedLoader: @escaping () -> FeedLoader.Publisher, imageLoader: FeedImageDataLoader) -> FeedViewController {
+        let presentationAdapter = FeedLoaderPresentationAdapter {
+            feedLoader().dispatchOnMainQueue()
+        }
         
         let feedController = makeWith(delegate: presentationAdapter, title: FeedPresenter.title)
         

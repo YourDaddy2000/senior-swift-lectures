@@ -10,7 +10,7 @@ import EssentialFeed
 import EssentialFeediOS
 
 public enum FeedUIComposer {
-    static func composeFeedViewController(feedLoader: @escaping () -> FeedLoader.Publisher, imageLoader: FeedImageDataLoader) -> FeedViewController {
+    public static func composeFeedViewController(feedLoader: @escaping () -> FeedLoader.Publisher, imageLoader: FeedImageDataLoader) -> FeedViewController {
         let presentationAdapter = FeedLoaderPresentationAdapter {
             feedLoader().dispatchOnMainQueue()
         }
