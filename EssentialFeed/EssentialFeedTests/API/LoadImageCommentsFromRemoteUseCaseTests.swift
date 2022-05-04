@@ -68,7 +68,7 @@ class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
     
     func test_load_deliversNoItemsOn2XXHTTPResponseWithEmptyJSONList() {
         let (sut, client) = getSUT()
-        let samples = [201] //, 201, 250, 280, 299]
+        let samples = [201, 201, 250, 280, 299]
         
         samples.enumerated().forEach { index, code in
             expect(sut, toCompleteWith: .success([])) {
@@ -91,12 +91,15 @@ class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
         let (sut, client) = getSUT()
         let item1 = makeItem(
             id: UUID(),
-            imageURL: "https://a-url.com")
+            message: "message1",
+            createdAt: (Date(timeIntervalSince1970: 1598627222), "2020-08-28T15:07:02+00:00"),
+            username: "user1")
         let item2 = makeItem(
             id: UUID(),
-            description: "description",
-            location: "location",
-            imageURL: "https://another-url.com")
+            message: "message2",
+            createdAt: (Date(timeIntervalSince1970: 1577881882), "2020-01-01T12:31:22+00:00"),
+            username: "user2")
+        
         let items = [item1.model, item2.model]
         
         expect(sut, toCompleteWith: .success(items)) {
@@ -135,19 +138,22 @@ class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
         return try! JSONSerialization.data(withJSONObject: json)
     }
     
-    private func makeItem(id: UUID, description: String? = nil, location: String? = nil, imageURL: String) -> (model: FeedImage, json: [String:Any]) {
-        let model = FeedImage(
+    private func makeItem(id: UUID, message: String, createdAt: (date: Date, iso8601String: String), username: String) -> (model: ImageComment, json: [String : Any]) {
+        let model = ImageComment(
             id: id,
-            description: description,
-            location: location,
-            url: URL(string: imageURL)!)
+            message: message,
+            createdAt: createdAt.date,
+            username: username
+        )
         
-        let json = [
+        let json: [String: Any] = [
             "id": id.uuidString,
-            "description": description,
-            "location": location,
-            "image": imageURL
-        ].compactMapValues{ $0 }
+            "message": message,
+            "created_at": createdAt.iso8601String,
+            "author": [
+                "username": username
+            ]
+        ]
         
         return(model, json)
     }
