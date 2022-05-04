@@ -10,139 +10,135 @@ import EssentialFeed
 
 class RemoteLoaderTests: XCTestCase {
     
-    override func tearDown() {
-        super.tearDown()
-        
-        URLProtocolStub.removeStub()
-    }
-    
-    func test_getFromURL_performsGETRequestWithURL() {
-        let url = anyURL()
-        let exp = expectation(description: "wait for request")
-        
-        URLProtocolStub.observe { request in
-            XCTAssertEqual(request.url, url)
-            XCTAssertEqual(request.httpMethod, "GET")
-            exp.fulfill()
-        }
-        
-        makeSUT().get(from: url, completion: { _ in })
-        wait(for: [exp], timeout: 1)
+    func test_init_doesNotRequestDataFromURL() {
+        let client = HTTPClientSpy()
+
+        XCTAssertTrue(client.requestedURLs.isEmpty)
     }
 
-    func test_getFromUrl_failsOnRequestError() {
-        let requestError = anyError()
-        let responseError = resultErrorFor((data: nil, response: nil, error: requestError))
-        XCTAssertEqual(requestError.domain, (responseError as NSError?)?.domain)
+    func test_load_requestsDataFromURL() {
+        let url = URL(string: "https://someurl.com")!
+        let (sut, client) = getSUT(url: url)
+
+        sut.load { _ in }
+
+        XCTAssertEqual(client.requestedURLs, [url])
     }
-    
-    func test_getFromUrl_failsOnAllInvalidCases() {
-        XCTAssertNotNil(resultErrorFor((data: nil, response: nil, error: nil)))
-        XCTAssertNotNil(resultErrorFor((data: nil, response: nonHTTPUrlResponse(), error: nil)))
-        XCTAssertNotNil(resultErrorFor((data: anyData(), response: nil, error: nil)))
-        XCTAssertNotNil(resultErrorFor((data: anyData(), response: nil, error: anyError())))
-        XCTAssertNotNil(resultErrorFor((data: nil, response: nonHTTPUrlResponse(), error: anyError())))
-        XCTAssertNotNil(resultErrorFor((data: nil, response: anyHTTPUrlResponse(), error: anyError())))
-        XCTAssertNotNil(resultErrorFor((data: anyData(), response: nonHTTPUrlResponse(), error: anyError())))
-        XCTAssertNotNil(resultErrorFor((data: anyData(), response: anyHTTPUrlResponse(), error: anyError())))
-        XCTAssertNotNil(resultErrorFor((data: anyData(), response: nonHTTPUrlResponse(), error: nil)))
+
+    func test_load_requestsDataTwiceFromURL() {
+        let url = URL(string: "https://someurl.com")!
+        let (sut, client) = getSUT(url: url)
+
+        sut.load { _ in }
+        sut.load { _ in }
+
+        XCTAssertEqual(client.requestedURLs, [url, url])
     }
-    
-    func test_getFromURL_succeedsOnHTTPURLResponseWithData() {
-        let data = anyData()
-        let response = anyHTTPUrlResponse()
-        let receivedResponse = resultValuesFrom((data: data, response: response, error: nil))
-        
-        XCTAssertEqual(receivedResponse?.data, data)
-        XCTAssertEqual(receivedResponse?.response.url, response.url)
-        XCTAssertEqual(receivedResponse?.response.statusCode, response.statusCode)
-    }
-    
-    func test_getFromURL_succeedsOnHTTPURLResponseWithNilData() {
-        let response = anyHTTPUrlResponse()
-        let receivedResponse = resultValuesFrom((data: nil, response: response, error: nil))
-        let emptyData = Data()
-        XCTAssertEqual(receivedResponse?.data, emptyData)
-        XCTAssertEqual(receivedResponse?.response.url, response.url)
-        XCTAssertEqual(receivedResponse?.response.statusCode, response.statusCode)
-    }
-    
-    func test_cancelGetFromURLTask_cancelsURLRequest() {
-        let url = anyURL()
-        let exp = expectation(description: "wait for request")
-        
-        let task = makeSUT().get(from: url) { result in
-            switch result {
-            case .failure(let error as NSError) where error.code == URLError.cancelled.rawValue:
-                break
-            case _:
-                XCTFail("Expected cancelled result, got \(result) instead")
-            }
-            exp.fulfill()
+
+    func test_load_deliversErrorOnClientError() {
+        let (sut, client) = getSUT()
+        let clientError = NSError(domain: "Test", code: 0)
+
+        expect(sut, toCompleteWith: failure(.connectivityError)) {
+            client.complete(withError: clientError)
         }
-        
-        task.cancel()
-        wait(for: [exp], timeout: 1)
     }
-    
-    //MARK: - Helpers
-    private func resultValuesFrom(_ values: (data: Data?, response: URLResponse?, error: Error?)? = nil, taksHandler: (HTTPClientTask) -> Void = { _ in }, file: StaticString = #filePath, line: UInt = #line) -> (data: Data, response: HTTPURLResponse)? {
-        let result = resultFrom(values, taskHandler: taksHandler)
-        
-        switch result {
-        case let .success((data, response)):
-            return (data, response)
-        default:
-            XCTFail("Expected Success, got \(result) instead", file: file, line: line)
-        }
-        
-        return nil
-    }
-    
-    private func resultErrorFor(_ values: (data: Data?, response: URLResponse?, error: Error?)? = nil, taksHandler: (HTTPClientTask) -> Void = { _ in }, file: StaticString = #filePath, line: UInt = #line) -> Error? {
-        let result = resultFrom(values, taskHandler: taksHandler)
-        
-        switch result {
-        case let .failure(error):
-            return error
-        default:
-            XCTFail("Expected Failure, got \(result) instead", file: file, line: line)
-        }
-        
-        return nil
-    }
-    
-    private func resultFrom(_ values: (data: Data?, response: URLResponse?, error: Error?)? = nil, taskHandler: (HTTPClientTask) -> Void = { _ in }, file: StaticString = #filePath, line: UInt = #line) -> HTTPClient.Response {
-        values.map { URLProtocolStub.stub(data: $0, response: $1, error: $2) }
-        
-        let sut = makeSUT(file: file, line: line)
-        let exp = expectation(description: "wait for")
-        var receivedResult: HTTPClient.Response!
-        
-        taskHandler(sut.get(from: anyURL()) { result in
-            receivedResult = result
-            exp.fulfill()
+
+    func test_load_deliversErrorOnMapperError() {
+        let (sut, client) = getSUT(mapper: { _, _ in
+            throw RemoteLoader<String>.Error.invalidData
         })
+
+        expect(sut, toCompleteWith: failure(.invalidData)) {
+            client.complete(withStatusCode: 200, data: anyData())
+        }
+    }
+
+    func test_load_deliversMappedResource() {
+        let resource = "a resource"
+        let (sut, client) = getSUT(mapper: { data, _ in
+            String(data: data, encoding: .utf8)!
+        })
+
+        expect(sut, toCompleteWith: .success(resource)) {
+            client.complete(withStatusCode: 200, data: Data(resource.utf8))
+        }
+    }
+    
+    func test_load_doesNotDeliverResultAfterSUTHasBeenDeallocated() {
+        let url = URL(string: "https://any-url.com")!
+        let client = HTTPClientSpy()
+        var sut: RemoteLoader<String>? = RemoteLoader(url: url, client: client, mapper: { _, _ in "any"})
         
-        wait(for: [exp], timeout: 1)
-        return receivedResult
-    }
-    
-    private func nonHTTPUrlResponse() -> URLResponse {
-        return URLResponse(url: anyURL(), mimeType: nil, expectedContentLength: 0, textEncodingName: nil)
-    }
-    
-    private func anyHTTPUrlResponse() -> HTTPURLResponse {
-        return HTTPURLResponse(url: anyURL(), statusCode: 200, httpVersion: nil, headerFields: nil)!
-    }
-    
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> HTTPClient {
-        let configuration = URLSessionConfiguration.ephemeral
-        configuration.protocolClasses = [URLProtocolStub.self]
+        var capturedResults = [RemoteLoader<String>.Result]()
+        sut?.load { capturedResults.append($0) }
+        sut = nil
         
-        let session = URLSession(configuration: configuration)
-        let sut = URLSessionHTTPClient(session: session)
+        client.complete(withStatusCode: 200, data: makeItemsJSON([]))
+        
+        XCTAssertTrue(capturedResults.isEmpty)
+    }
+    
+    //MARK: Helpers
+    private func getSUT(
+        url: URL = URL(string: "https://google.com")!,
+        mapper: @escaping RemoteLoader<String>.Mapper = { _, _ in "any" },
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> (sut: RemoteLoader<String>, client: HTTPClientSpy) {
+        let client = HTTPClientSpy()
+        let sut = RemoteLoader<String>(url: url, client: client, mapper: mapper)
+        
+        trackForMemoryLeaks(client, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
-        return sut
+        
+        return (sut, client)
+    }
+    
+    private func makeItemsJSON(_ items: [[String:Any]]) -> Data {
+        let json = ["items": items]
+        return try! JSONSerialization.data(withJSONObject: json)
+    }
+    
+    private func makeItem(id: UUID, description: String? = nil, location: String? = nil, imageURL: String) -> (model: FeedImage, json: [String:Any]) {
+        let model = FeedImage(
+            id: id,
+            description: description,
+            location: location,
+            url: URL(string: imageURL)!)
+        
+        let json = [
+            "id": id.uuidString,
+            "description": description,
+            "location": location,
+            "image": imageURL
+        ].compactMapValues{ $0 }
+        
+        return(model, json)
+    }
+    
+    private func expect(_ sut: RemoteLoader<String>, toCompleteWith expectedResult: RemoteLoader<String>.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
+        
+        let exp = expectation(description: "Wait to load completion")
+        
+        sut.load { receivedResult in
+            switch (receivedResult, expectedResult) {
+            case let (.success(receivedItems), .success(expectedItems)):
+                XCTAssertEqual(receivedItems, expectedItems, file: file, line: line)
+            case let (.failure(receivedError as RemoteLoader<String>.Error), .failure(expectedError as RemoteLoader<String>.Error)):
+                XCTAssertEqual(receivedError, expectedError, file: file, line: line)
+            default:
+                XCTFail("Expected result \(expectedResult) got \(receivedResult) instead", file: file, line: line)
+            }
+            
+            exp.fulfill()
+        }
+        action()
+        
+        wait(for: [exp], timeout: 1.0)
+    }
+    
+    private func failure(_ error: RemoteLoader<String>.Error) -> RemoteLoader<String>.Result {
+        return .failure(error)
     }
 }
