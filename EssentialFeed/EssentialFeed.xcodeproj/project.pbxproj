@@ -494,10 +494,10 @@
 				8488930F279DA7E800A2DBC8 /* Helpers */,
 				8437E08B276CA2D900796422 /* FeedImageDataLoader.swift */,
 				18876FF426D1775400DFDD2F /* RemoteFeedLoader.swift */,
+				189015DB27161F6E007FEE8F /* RemoteFeedItem.swift */,
 				183CA57426DBE88000DEEA0C /* FeedItemMapper.swift */,
 				189015DD27161FBE007FEE8F /* LocalFeedImage.swift */,
 				8488930D279D9C9C00A2DBC8 /* RemoteFeedImageDataLoader.swift */,
-				189015DB27161F6E007FEE8F /* RemoteFeedItem.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
