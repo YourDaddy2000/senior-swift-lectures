@@ -36,6 +36,11 @@ extension XCTestCase {
         let localItems = models.map { LocalFeedImage(id: $0.id, description: $0.description, location: $0.location, imageURL: $0.url) }
         return (models, localItems)
     }
+    
+    func makeItemsJSON(_ items: [[String:Any]]) -> Data {
+        let json = ["items": items]
+        return try! JSONSerialization.data(withJSONObject: json)
+    }
 }
 
 extension Date {
