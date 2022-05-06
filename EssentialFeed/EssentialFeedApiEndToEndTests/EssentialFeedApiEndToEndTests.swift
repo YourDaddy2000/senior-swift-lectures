@@ -7,6 +7,7 @@
 
 import XCTest
 import EssentialFeed
+import Combine
 
 class EssentialFeedApiEndToEndTests: XCTestCase {
     
@@ -43,28 +44,32 @@ class EssentialFeedApiEndToEndTests: XCTestCase {
     // MARK: - Helpers
     private func getFeedImageDataResult(file: StaticString = #file, line: UInt = #line) -> FeedImageDataLoader.Result? {
         let testServerURL = feedTestServerURL.appendingPathComponent("73A7F70C-75DA-4C2E-B5A3-EED40DC53AA6/image")
-        let loader = RemoteFeedImageDataLoader(client: ephemeralClient())
-        trackForMemoryLeaks(loader)
-        
+        let client = ephemeralClient()
         let exp = expectation(description: "Wait for load completion")
         
         var receivedResult: FeedImageDataLoader.Result?
-        _ = loader.loadImageData(from: testServerURL, completion: { result in
-            receivedResult = result
+        client.get(from: testServerURL) { result in
+            receivedResult = result.flatMap { data, response in
+                do {
+                    return .success(try FeedImageDataMapper.map(data, response: response))
+                } catch {
+                    return .failure(error)
+                }
+            }
             exp.fulfill()
-        })
+        }
         
         wait(for: [exp], timeout: 5)
         return receivedResult
     }
     
-    private func getFeedResult(file: StaticString = #filePath, line: UInt = #line) -> AnyPublisher<[FeedImage], Error>? {
+    private func getFeedResult(file: StaticString = #filePath, line: UInt = #line) -> Swift.Result<[FeedImage], Error>? {
         let testServerURL = feedTestServerURL
         let client = ephemeralClient()
         trackForMemoryLeaks(client, file: file, line: line)
         
         let exp = expectation(description: "wait for load")
-        var feedResult: AnyPublisher<[FeedImage], Error>?
+        var feedResult: Swift.Result<[FeedImage], Error>?
         
         client.get(from: testServerURL) { result in
             feedResult = result.flatMap { data, response in

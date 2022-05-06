@@ -9,14 +9,14 @@ import Foundation
 import EssentialFeed
 import EssentialFeediOS
 
-class LoaderSpy: FeedLoader, FeedImageDataLoader {
+class LoaderSpy: FeedImageDataLoader {
 //          FeedLoader
-    private var feedRequests = [(AnyPublisher<[FeedImage], Error>) -> Void]()
+    private var feedRequests = [(Swift.Result<[FeedImage], Error>) -> Void]()
     var loadFeedCounts: Int {
         feedRequests.count
     }
     
-    func load(completion: @escaping (AnyPublisher<[FeedImage], Error>) -> Void) {
+    func load(completion: @escaping (Swift.Result<[FeedImage], Error>) -> Void) {
         feedRequests.append(completion)
     }
     
