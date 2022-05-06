@@ -21,10 +21,14 @@ public enum FeedItemMapper {
         }
     }
     
+    public enum Error: Swift.Error {
+        case invalidData
+    }
+    
     public static func map(_ data: Data, response: HTTPURLResponse) throws -> [FeedImage] {
         guard response.isOK,
               let root = try? JSONDecoder().decode(Root.self, from: data) else {
-                  throw RemoteLoader<FeedImage>.Error.invalidData
+                  throw Error.invalidData
         }
         
         return root.images
