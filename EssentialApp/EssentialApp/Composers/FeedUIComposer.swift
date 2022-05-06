@@ -10,7 +10,7 @@ import Combine
 import UIKit
 
 public enum FeedUIComposer {
-    public static func composeFeedViewController(feedLoader: @escaping () -> FeedLoader.Publisher, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) -> FeedViewController {
+    public static func composeFeedViewController(feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) -> FeedViewController {
         let presentationAdapter = FeedLoaderPresentationAdapter {
             feedLoader().dispatchOnMainQueue()
         }

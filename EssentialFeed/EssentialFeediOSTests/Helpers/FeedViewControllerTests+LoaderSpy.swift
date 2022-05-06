@@ -11,12 +11,12 @@ import EssentialFeediOS
 
 class LoaderSpy: FeedLoader, FeedImageDataLoader {
 //          FeedLoader
-    private var feedRequests = [(FeedLoader.Result) -> Void]()
+    private var feedRequests = [(AnyPublisher<[FeedImage], Error>) -> Void]()
     var loadFeedCounts: Int {
         feedRequests.count
     }
     
-    func load(completion: @escaping (FeedLoader.Result) -> Void) {
+    func load(completion: @escaping (AnyPublisher<[FeedImage], Error>) -> Void) {
         feedRequests.append(completion)
     }
     

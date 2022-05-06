@@ -5,7 +5,7 @@
 //  Created by Roman Bozhenko on 11.10.2021.
 //
 
-public final class LocalFeedLoader: FeedLoader {
+public final class LocalFeedLoader {
     private let store: FeedStoreProtocol
     private let currentDate: () -> Date
     
@@ -52,7 +52,7 @@ extension LocalFeedLoader: FeedCache {
 }
 
 extension LocalFeedLoader {
-    public typealias LoadResult = FeedLoader.Result
+    public typealias LoadResult = Swift.Result<[FeedImage], Error>
     
     public func load(completion: @escaping (LoadResult) -> Void) {
         store.retrieve { [weak self] result in
