@@ -89,6 +89,7 @@
 		84A470EB2837952B00C347AA /* LoadResourcePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A470EA2837952B00C347AA /* LoadResourcePresenterTests.swift */; };
 		84A470EE28379FE400C347AA /* Shared.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84A470F028379FE400C347AA /* Shared.strings */; };
 		84A470F32837A0C600C347AA /* SharedLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A470F22837A0C600C347AA /* SharedLocalizationTests.swift */; };
+		84A470F52837A72F00C347AA /* SharedLocalizationTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A470F42837A72F00C347AA /* SharedLocalizationTestHelpers.swift */; };
 		84B7229C280C736C00998DB7 /* ImageCommentsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B7229B280C736C00998DB7 /* ImageCommentsMapper.swift */; };
 		84B7229E280C73F500998DB7 /* ImageCommentsMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B7229D280C73F500998DB7 /* ImageCommentsMapperTests.swift */; };
 		84B722A1280C7A4800998DB7 /* ImageComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B722A0280C7A4800998DB7 /* ImageComment.swift */; };
@@ -252,6 +253,7 @@
 		84A470EF28379FE400C347AA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Shared.strings; sourceTree = "<group>"; };
 		84A470F128379FE700C347AA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Shared.strings; sourceTree = "<group>"; };
 		84A470F22837A0C600C347AA /* SharedLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedLocalizationTests.swift; sourceTree = "<group>"; };
+		84A470F42837A72F00C347AA /* SharedLocalizationTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedLocalizationTestHelpers.swift; sourceTree = "<group>"; };
 		84B7229B280C736C00998DB7 /* ImageCommentsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCommentsMapper.swift; sourceTree = "<group>"; };
 		84B7229D280C73F500998DB7 /* ImageCommentsMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCommentsMapperTests.swift; sourceTree = "<group>"; };
 		84B722A0280C7A4800998DB7 /* ImageComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageComment.swift; sourceTree = "<group>"; };
@@ -384,6 +386,7 @@
 			children = (
 				186F3E8526ECCDDF00C36812 /* XCTest+Extension.swift */,
 				846E1B6B27A7233700DB9B7E /* FeedImageDataStoreSpy.swift */,
+				84A470F42837A72F00C347AA /* SharedLocalizationTestHelpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1055,6 +1058,7 @@
 				846E1B6C27A7233700DB9B7E /* FeedImageDataStoreSpy.swift in Sources */,
 				844B1B2A2793395B0078517B /* FeedImagePresenterTests.swift in Sources */,
 				185B8F6B273324070003541E /* FeedStoreSpecs.swift in Sources */,
+				84A470F52837A72F00C347AA /* SharedLocalizationTestHelpers.swift in Sources */,
 				1879C9BA26C68E0200489C7B /* FeedItemsMapperTests.swift in Sources */,
 				180F7EF926E20FF40045CAE9 /* URLSessionHTTPClientTests.swift in Sources */,
 				18B3161F27184504009B463A /* FeedStoreSpy.swift in Sources */,
