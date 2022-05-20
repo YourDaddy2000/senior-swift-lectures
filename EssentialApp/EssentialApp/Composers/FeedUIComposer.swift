@@ -11,7 +11,7 @@ import UIKit
 
 public enum FeedUIComposer {
     public static func composeFeedViewController(feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) -> FeedViewController {
-        let presentationAdapter = FeedLoaderPresentationAdapter {
+        let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter> {
             feedLoader().dispatchOnMainQueue()
         }
         
