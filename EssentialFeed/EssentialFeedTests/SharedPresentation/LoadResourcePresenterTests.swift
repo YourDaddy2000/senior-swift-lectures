@@ -50,7 +50,7 @@ class LoadResourcePresenterTests: XCTestCase {
     //MARK: - Helpers
     private func localized(_ key: String, file: StaticString = #file, line: UInt = #line) -> String {
         let table = "Feed"
-        let bundle = Bundle(for: LoadResourcePresenter.self)
+        let bundle = Bundle(for: SUT.self)
         let value = bundle.localizedString(forKey: key, value: nil, table: table)
         
         if value == key {
@@ -60,20 +60,24 @@ class LoadResourcePresenterTests: XCTestCase {
         return value
     }
     
+    private typealias SUT = LoadResourcePresenter<String, ViewSpy>
+    
     private func makeSUT(
-        mapper: @escaping LoadResourcePresenter.Mapper = { _ in "any" },
+        mapper: @escaping SUT.Mapper = { _ in "any" },
         file: StaticString = #file,
         line: UInt = #line
-    ) -> (LoadResourcePresenter, ViewSpy) {
+    ) -> (SUT, ViewSpy) {
         let viewSpy = ViewSpy()
-        let presenter = LoadResourcePresenter(resourceView: viewSpy, loadingView: viewSpy, errorView: viewSpy, mapper: mapper)
+        let sut = SUT(resourceView: viewSpy, loadingView: viewSpy, errorView: viewSpy, mapper: mapper)
         trackForMemoryLeaks(viewSpy)
-        trackForMemoryLeaks(presenter)
+        trackForMemoryLeaks(sut)
         
-        return (presenter, viewSpy)
+        return (sut, viewSpy)
     }
     
     private class ViewSpy: FeedErrorViewProtocol, LoadingViewProtocol, ResourceViewProtocol {
+        typealias ResourceViewModel = String
+        
         enum Messages: Equatable {
             case display(errorMessage: String?)
             case display(isLoading: Bool?)
