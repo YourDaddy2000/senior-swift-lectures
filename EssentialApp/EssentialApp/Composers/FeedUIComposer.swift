@@ -11,9 +11,10 @@ import UIKit
 
 public enum FeedUIComposer {
     public static func composeFeedViewController(feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) -> FeedViewController {
-        let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter> {
+        typealias PresentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>
+        let presentationAdapter =  PresentationAdapter(loader: {
             feedLoader().dispatchOnMainQueue()
-        }
+        })
         
         let feedController = makeWith(delegate: presentationAdapter, title: FeedPresenter.title)
         

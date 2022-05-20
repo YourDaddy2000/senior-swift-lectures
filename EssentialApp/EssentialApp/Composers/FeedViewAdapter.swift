@@ -21,7 +21,9 @@ final class FeedViewAdapter: ResourceViewProtocol {
     
     func display(_ viewModel: EssentialFeed.FeedViewModel) {
         controller?.display(viewModel.feed.map { model in
-            let adapter = LoadResourcePresentationAdapter<Data, WeakRefVirtualProxy<FeedImageCellController>>(loader: { [loader] in
+            typealias ImageDataPresentationAdapter = LoadResourcePresentationAdapter<Data, WeakRefVirtualProxy<FeedImageCellController>>
+            
+            let adapter = ImageDataPresentationAdapter(loader: { [loader] in
                 loader(model.url)
             })
             let view = FeedImageCellController(
