@@ -1,0 +1,8 @@
+/* 
+  Shared.strings
+  EssentialFeed
+
+  Created by Roman Bozhenko on 20.05.2022.
+  
+*/
+"GENERIC_CONNECTION_ERROR" = "Connection Error";
