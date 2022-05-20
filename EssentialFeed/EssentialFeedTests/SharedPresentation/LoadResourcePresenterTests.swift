@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import EssentialFeed
 
 class LoadResourcePresenterTests: XCTestCase {
     
@@ -14,10 +15,10 @@ class LoadResourcePresenterTests: XCTestCase {
         XCTAssertTrue(spy.messages.isEmpty)
     }
     
-    func test_didStartLoadingFeed_displaysNoErrorMessage() {
+    func test_didStartLoading_displaysNoErrorMessageAndStartsLoading() {
         let (sut, view) = makeSUT()
         
-        sut.didStartLoadingFeed()
+        sut.didStartLoading()
         XCTAssertEqual(view.messages, [
             .display(errorMessage: .none),
             .display(isLoading: true)
@@ -44,14 +45,10 @@ class LoadResourcePresenterTests: XCTestCase {
         ])
     }
     
-    func test_title_isLocalized() {
-        XCTAssertEqual(FeedPresenter.title, localized("feed_view_title"))
-    }
-    
     //MARK: - Helpers
     private func localized(_ key: String, file: StaticString = #file, line: UInt = #line) -> String {
         let table = "Feed"
-        let bundle = Bundle(for: FeedPresenter.self)
+        let bundle = Bundle(for: LoadResourcePresenter.self)
         let value = bundle.localizedString(forKey: key, value: nil, table: table)
         
         if value == key {
@@ -61,9 +58,9 @@ class LoadResourcePresenterTests: XCTestCase {
         return value
     }
     
-    private func makeSUT() -> (FeedPresenter, ViewSpy) {
+    private func makeSUT() -> (LoadResourcePresenter, ViewSpy) {
         let viewSpy = ViewSpy()
-        let presenter = FeedPresenter(feedView: viewSpy, loadingView: viewSpy, errorView: viewSpy)
+        let presenter = LoadResourcePresenter(feedView: viewSpy, loadingView: viewSpy, errorView: viewSpy)
         trackForMemoryLeaks(viewSpy)
         trackForMemoryLeaks(presenter)
         
