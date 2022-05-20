@@ -70,7 +70,7 @@ class FeedPresentationTests: XCTestCase {
         return (presenter, viewSpy)
     }
     
-    private class ViewSpy: FeedErrorViewProtocol, LoadingViewProtocol, FeedViewProtocol {
+    private class ViewSpy: FeedErrorViewProtocol, ResourceLoadingViewProtocol, FeedViewProtocol {
         enum Messages: Equatable {
             case display(errorMessage: String?)
             case display(isLoading: Bool?)
@@ -83,7 +83,7 @@ class FeedPresentationTests: XCTestCase {
             messages.append(.display(errorMessage: viewModel.message))
         }
         
-        func display(_ viewModel: FeedLoadingViewModel) {
+        func display(_ viewModel: ResourceLoadingViewModel) {
             messages.append(.display(isLoading: viewModel.isLoading))
         }
         
