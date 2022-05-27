@@ -16,7 +16,7 @@ public enum FeedUIComposer {
             feedLoader().dispatchOnMainQueue()
         })
         
-        let feedController = makeWith(delegate: presentationAdapter, title: FeedPresenter.title)
+        let feedController = makeFeedViewControllerWith(title: FeedPresenter.title)
         
         let presenter = LoadResourcePresenter(
             resourceView: FeedViewAdapter(
@@ -30,11 +30,10 @@ public enum FeedUIComposer {
         return feedController
     }
     
-    private static func makeWith(delegate: ListViewControllerDelegate, title: String) -> ListViewController {
+    private static func makeFeedViewControllerWith(title: String) -> ListViewController {
         let bundle = Bundle(for: ListViewController.self)
         let storyboard = UIStoryboard(name: "Feed", bundle: bundle)
         let feedController = storyboard.instantiateInitialViewController() as! ListViewController
-        feedController.delegate = delegate
         feedController.title = title
         return feedController
     }

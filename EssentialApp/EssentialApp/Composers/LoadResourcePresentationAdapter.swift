@@ -33,12 +33,6 @@ final class LoadResourcePresentationAdapter<Resource, View: ResourceViewProtocol
     }
 }
 
-extension LoadResourcePresentationAdapter: ListViewControllerDelegate {
-    func didRequestFeedRefresh() {
-        loadResource()
-    }
-}
-
 extension LoadResourcePresentationAdapter: FeedImageCellControllerDelegate {
     func didRequestImage() {
         loadResource()
