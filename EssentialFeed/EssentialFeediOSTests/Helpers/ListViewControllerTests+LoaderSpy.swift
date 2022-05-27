@@ -1,5 +1,5 @@
 //
-//  FeedViewControllerTests+LoaderSpy.swift
+//  ListViewControllerTests+LoaderSpy.swift
 //  EssentialFeediOSTests
 //
 //  Created by Roman Bozhenko on 17.12.2021.
