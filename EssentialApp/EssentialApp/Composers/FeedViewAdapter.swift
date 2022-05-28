@@ -36,7 +36,7 @@ final class FeedViewAdapter: ResourceViewProtocol {
                 errorView: WeakRefVirtualProxy(view),
                 mapper: UIImage.tryMake)
             
-            return view
+            return CellController(view)
         })
     }
 }

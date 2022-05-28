@@ -119,6 +119,7 @@
 		84DCFBD2284124F00018FB9C /* ImageComments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84DCFBCE284121020018FB9C /* ImageComments.storyboard */; };
 		84DCFBD62841270E0018FB9C /* IMAGE_COMMENTS_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DCFBD42841270E0018FB9C /* IMAGE_COMMENTS_dark.png */; };
 		84DCFBD72841270E0018FB9C /* IMAGE_COMMENTS_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DCFBD52841270E0018FB9C /* IMAGE_COMMENTS_light.png */; };
+		84DCFBD9284265190018FB9C /* CellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DCFBD8284265190018FB9C /* CellController.swift */; };
 		84EAA3992768A83900A6D401 /* UIView+Shimmering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EAA3982768A83900A6D401 /* UIView+Shimmering.swift */; };
 		84EAA3AE276940C200A6D401 /* FeedImageCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EAA3AD276940C200A6D401 /* FeedImageCellController.swift */; };
 /* End PBXBuildFile section */
@@ -307,6 +308,7 @@
 		84DCFBD02841233C0018FB9C /* ImageCommentsSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCommentsSnapshotTests.swift; sourceTree = "<group>"; };
 		84DCFBD42841270E0018FB9C /* IMAGE_COMMENTS_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMAGE_COMMENTS_dark.png; sourceTree = "<group>"; };
 		84DCFBD52841270E0018FB9C /* IMAGE_COMMENTS_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMAGE_COMMENTS_light.png; sourceTree = "<group>"; };
+		84DCFBD8284265190018FB9C /* CellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellController.swift; sourceTree = "<group>"; };
 		84EAA3982768A83900A6D401 /* UIView+Shimmering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shimmering.swift"; sourceTree = "<group>"; };
 		84EAA3AD276940C200A6D401 /* FeedImageCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCellController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -813,6 +815,7 @@
 			isa = PBXGroup;
 			children = (
 				18BCD800275CF95F007455DC /* ListViewController.swift */,
+				84DCFBD8284265190018FB9C /* CellController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1175,6 +1178,7 @@
 				843DB5562779EDFB00557790 /* FeedLoadingViewModel.swift in Sources */,
 				84EAA3992768A83900A6D401 /* UIView+Shimmering.swift in Sources */,
 				843DB564277A201900557790 /* UIImageView+Animations.swift in Sources */,
+				84DCFBD9284265190018FB9C /* CellController.swift in Sources */,
 				84DCFBCA28411FF80018FB9C /* ImageCommentCellController.swift in Sources */,
 				84EAA3AE276940C200A6D401 /* FeedImageCellController.swift in Sources */,
 				84DCFBC328410DD30018FB9C /* UITableView+Dequeueing.swift in Sources */,

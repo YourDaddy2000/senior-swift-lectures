@@ -31,7 +31,7 @@ class ListSnapshotsTests: XCTestCase {
     
     //MARK: - Helpers
     
-    private var emptyFeed: [FeedImageCellController] { [] }
+    private var emptyFeed: [CellController] { [] }
 
     private func makeSUT() -> ListViewController {
         let bundle = Bundle(for: ListViewController.self)

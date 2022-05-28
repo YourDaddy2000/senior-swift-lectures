@@ -33,6 +33,10 @@ class ImageCommentsSnapshotTests: XCTestCase {
     }
     
     private var comments: [CellController] {
+        commentControllers.map { CellController($0) } 
+    }
+    
+    private var commentControllers: [ImageCommentCellController] {
         return [
             ImageCommentCellController(
                 model: .init(
