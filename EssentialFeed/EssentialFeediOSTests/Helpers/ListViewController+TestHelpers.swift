@@ -46,8 +46,12 @@ extension ListViewController {
         refreshControl?.simulatePullToRefresh()
     }
     
+    func simulateErrorViewTap() {
+        errorView.simulateTap()
+    }
+    
     var errorMessage: String? {
-        errorView?.errorMessage
+        errorView.errorMessage
     }
     
     var isShowingLoadingIndicator: Bool {
