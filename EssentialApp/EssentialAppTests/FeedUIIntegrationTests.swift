@@ -323,7 +323,7 @@ class FeedUIIntegrationTests: XCTestCase {
         loader.completeFeedLoadingWithError(at: 0)
         XCTAssertEqual(sut.errorMessage, loadError)
         
-        sut.simulateTap()
+        sut.errorView.simulateTap()
         XCTAssertEqual(sut.errorMessage, nil)
     }
     
