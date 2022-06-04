@@ -48,6 +48,7 @@ final class FeedViewAdapter: ResourceViewProtocol {
             
             return CellController(id: model, view)
         })
+        controller?.tableView.reloadData()
     }
 }
 
