@@ -18,6 +18,8 @@ public enum FeedUIComposer {
         
         let feedController = makeFeedViewControllerWith(title: FeedPresenter.title)
         
+        feedController.onRefresh = presentationAdapter.loadResource
+        
         let presenter = LoadResourcePresenter(
             resourceView: FeedViewAdapter(
                 controller: feedController,
@@ -25,6 +27,7 @@ public enum FeedUIComposer {
             loadingView: WeakRefVirtualProxy(feedController),
             errorView: WeakRefVirtualProxy(feedController),
             mapper: FeedPresenter.map)
+        
         presentationAdapter.presenter = presenter
         
         return feedController
