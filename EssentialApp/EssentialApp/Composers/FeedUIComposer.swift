@@ -10,8 +10,13 @@ import Combine
 import UIKit
 
 public enum FeedUIComposer {
-    public static func composeListViewController(feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) -> ListViewController {
-        typealias PresentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>
+    typealias PresentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>
+    
+    public static func composeListViewController(
+        feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>,
+        imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher,
+        selection: @escaping (FeedImage) -> Void = { _ in }
+    ) -> ListViewController {
         let presentationAdapter =  PresentationAdapter(loader: {
             feedLoader().dispatchOnMainQueue()
         })
@@ -23,7 +28,8 @@ public enum FeedUIComposer {
         let presenter = LoadResourcePresenter(
             resourceView: FeedViewAdapter(
                 controller: feedController,
-                loader: { imageLoader($0).dispatchOnMainQueue() }),
+                loader: { imageLoader($0).dispatchOnMainQueue() },
+                selection: selection),
             loadingView: WeakRefVirtualProxy(feedController),
             errorView: WeakRefVirtualProxy(feedController),
             mapper: FeedPresenter.map)
