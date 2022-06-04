@@ -8,6 +8,7 @@
 import UIKit
 import EssentialFeediOS
 
+//Feed
 extension ListViewController {
     @discardableResult
     func simulateFeedImageViewVisible(at index: Int) -> FeedImageCell? {
