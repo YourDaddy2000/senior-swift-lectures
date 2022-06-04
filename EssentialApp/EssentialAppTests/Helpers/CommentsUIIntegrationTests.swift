@@ -13,11 +13,11 @@ import EssentialFeediOS
 
 class CommentsUIIntegrationTests: FeedUIIntegrationTests {
     
-    override func test_feedView_hasTitle() {
+    func test_commentsView_hasTitle() {
         let (sut, _) = makeSUT()
         sut.loadViewIfNeeded()
         
-        XCTAssertEqual(sut.title, feedTitle)
+        XCTAssertEqual(sut.title, commentsTitle)
     }
 
     override func test_loadFeedActions_requestFeedFromLoader() {
@@ -337,7 +337,7 @@ class CommentsUIIntegrationTests: FeedUIIntegrationTests {
     
     private func makeSUT() -> (ListViewController, LoaderSpy) {
         let loader = LoaderSpy()
-        let sut = FeedUIComposer.composeListViewController(feedLoader: loader.loadPublisher, imageLoader: loader.loadImageDataPublisher)
+        let sut = CommentsUIComposer.composeListViewController(feedLoader: loader.loadPublisher, imageLoader: loader.loadImageDataPublisher)
         trackForMemoryLeaks(loader)
         trackForMemoryLeaks(sut)
         return (sut, loader)

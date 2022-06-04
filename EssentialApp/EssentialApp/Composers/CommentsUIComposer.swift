@@ -16,7 +16,7 @@ public enum CommentsUIComposer {
             feedLoader().dispatchOnMainQueue()
         })
         
-        let feedController = makeFeedViewControllerWith(title: FeedPresenter.title)
+        let feedController = makeCommentsViewControllerWith(title: ImageCommentsPresenter.title)
         
         feedController.onRefresh = presentationAdapter.loadResource
         
@@ -33,7 +33,7 @@ public enum CommentsUIComposer {
         return feedController
     }
     
-    private static func makeFeedViewControllerWith(title: String) -> ListViewController {
+    private static func makeCommentsViewControllerWith(title: String) -> ListViewController {
         let bundle = Bundle(for: ListViewController.self)
         let storyboard = UIStoryboard(name: "Feed", bundle: bundle)
         let feedController = storyboard.instantiateInitialViewController() as! ListViewController
