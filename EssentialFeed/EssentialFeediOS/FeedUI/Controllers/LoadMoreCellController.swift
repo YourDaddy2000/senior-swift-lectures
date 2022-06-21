@@ -20,7 +20,11 @@ public class LoadMoreCellController: NSObject, UITableViewDataSource {
     }
 }
 
-extension LoadMoreCellController: ResourceLoadingViewProtocol {
+extension LoadMoreCellController: ResourceLoadingViewProtocol, ResourceErrorViewProtocol {
+    public func display(_ viewModel: ResourceErrorViewModel) {
+        cell.message = viewModel.message
+    }
+    
     public func display(_ viewModel: ResourceLoadingViewModel) {
         cell.isLoading = viewModel.isLoading
     }

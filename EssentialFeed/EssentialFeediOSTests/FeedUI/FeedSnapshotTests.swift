@@ -38,6 +38,15 @@ class FeedSnapshotTests: XCTestCase {
         assert(snapshot: sut.shapshot(for: .iPhone8(style: .light)), named: "FEED_WITH_LOAD_MORE_INDICATOR_light")
         assert(snapshot: sut.shapshot(for: .iPhone8(style: .dark)), named: "FEED_WITH_LOAD_MORE_INDICATOR_dark")
     }
+    
+    func test_feedWithLoadMoreError() {
+        let sut = makeSUT()
+        
+        sut.display(feedWithLoadMoreError)
+        assert(snapshot: sut.shapshot(for: .iPhone8(style: .light)), named: "FEED_WITH_LOAD_MORE_ERROR_light")
+        assert(snapshot: sut.shapshot(for: .iPhone8(style: .dark)), named: "FEED_WITH_LOAD_MORE_ERROR_dark")
+        assert(snapshot: sut.shapshot(for: .iPhone8(style: .dark)), named: "FEED_WITH_LOAD_MORE_ERROR_extraExtraExtraLarge")
+    }
 
     //MARK: - Helpers
     private func makeSUT() -> ListViewController {
@@ -81,16 +90,26 @@ class FeedSnapshotTests: XCTestCase {
     }
     
     private var feedWithLoadMoreIndicator: [CellController] {
+        let loadMoreController = LoadMoreCellController()
+        loadMoreController.display(.init(isLoading: true))
+        return feedWith(loadMore: loadMoreController)
+    }
+    
+    private var feedWithLoadMoreError: [CellController] {
+        let loadMoreController = LoadMoreCellController()
+        loadMoreController.display(.error(message: "This is a multiline\nerror message"))
+        return feedWith(loadMore: loadMoreController)
+    }
+    
+    private func feedWith(loadMore: LoadMoreCellController) -> [CellController] {
+        
         let stub = feedWithContent.last!
         let feedCellController = FeedImageCellController(viewModel: stub.viewModel, delegate: stub, selection: {})
         stub.controller = feedCellController
         
-        let loadMoreController = LoadMoreCellController()
-        loadMoreController.display(.init(isLoading: true))
-        
         return [
             .init(id: UUID(), feedCellController),
-            .init(id: UUID(), loadMoreController)
+            .init(id: UUID(), loadMore)
         ]
     }
 }
