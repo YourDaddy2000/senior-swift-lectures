@@ -30,6 +30,14 @@ class FeedSnapshotTests: XCTestCase {
         assert(snapshot: sut.shapshot(for: .iPhone8(style: .dark)), named: "FEED_WITH_FAILED_IMAGE_LOADING_dark")
         assert(snapshot: sut.shapshot(for: .iPhone8(style: .dark, contentSize: .extraExtraExtraLarge)), named: "FEED_WITH_FAILED_IMAGE_LOADING_darkextraExtraExtraLarge")
     }
+    
+    func test_feedWithLoadMoreIndicator() {
+        let sut = makeSUT()
+        
+        sut.display(feedWithLoadMoreIndicator)
+        assert(snapshot: sut.shapshot(for: .iPhone8(style: .light)), named: "FEED_WITH_LOAD_MORE_INDICATOR_light")
+        assert(snapshot: sut.shapshot(for: .iPhone8(style: .dark)), named: "FEED_WITH_LOAD_MORE_INDICATOR_dark")
+    }
 
     //MARK: - Helpers
     private func makeSUT() -> ListViewController {
@@ -69,6 +77,20 @@ class FeedSnapshotTests: XCTestCase {
                 location: "Garth Pier",
                 image: UIImage.make(withColor: .green)
             )
+        ]
+    }
+    
+    private var feedWithLoadMoreIndicator: [CellController] {
+        let stub = feedWithContent.last!
+        let feedCellController = FeedImageCellController(viewModel: stub.viewModel, delegate: stub, selection: {})
+        stub.controller = feedCellController
+        
+        let loadMoreController = LoadMoreCellController()
+        loadMoreController.display(.init(isLoading: true))
+        
+        return [
+            .init(id: UUID(), feedCellController),
+            .init(id: UUID(), loadMoreController)
         ]
     }
 }
