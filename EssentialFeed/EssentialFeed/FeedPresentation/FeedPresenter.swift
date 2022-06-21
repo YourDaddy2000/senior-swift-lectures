@@ -21,8 +21,4 @@ public final class FeedPresenter {
             bundle: Bundle(for: Self.self),
             comment: "Error message displayed when we can't load the image feed from the server")
     }
-    
-    public static func map(_ feed: [FeedImage]) -> FeedViewModel {
-        FeedViewModel(feed: feed)
-    }
 }
