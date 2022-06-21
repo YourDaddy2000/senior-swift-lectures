@@ -32,6 +32,17 @@ public final class LoadResourcePresenter<Resource, View: ResourceViewProtocol> {
         self.mapper = mapper
     }
     
+    public init(
+        resourceView: View,
+        loadingView: ResourceLoadingViewProtocol,
+        errorView: ResourceErrorViewProtocol
+    ) where Resource == View.ResourceViewModel {
+        self.resourceView = resourceView
+        self.loadingView = loadingView
+        self.errorView = errorView
+        self.mapper = { $0 }
+    }
+    
     public static var loadError: String {
         NSLocalizedString(
             "GENERIC_CONNECTION_ERROR",
