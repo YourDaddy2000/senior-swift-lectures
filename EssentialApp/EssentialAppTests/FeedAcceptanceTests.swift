@@ -56,10 +56,10 @@ class FeedAcceptanceTests: XCTestCase {
     }
     
     func test_onFeedImageSelection_displaysComments() {
-//        let comments = showCommentsForFirstImage()
-//        
-//        XCTAssertEqual(comments.numberOfRenderedComments(), 1)
-//        XCTAssertEqual(comments.commentMessage(at: 0), makeCommentMessage())
+        let comments = showCommentsForFirstImage()
+        
+        XCTAssertEqual(comments.numberOfRenderedComments(), 1)
+        XCTAssertEqual(comments.commentMessage(at: 0), makeCommentMessage())
     }
     
     //MARK: - Helpers
@@ -124,9 +124,10 @@ class FeedAcceptanceTests: XCTestCase {
             [
                 "id": UUID().uuidString,
                 "message": makeCommentMessage(),
-                "created_at": [
+                "created_at": "2022-02-19T14:23:53+0000",
+                "author": [
                     "username": "a username"
-                ]
+                ],
             ]
         ]])
     }
