@@ -21,7 +21,9 @@ final class LoadResourcePresentationAdapter<Resource, View: ResourceViewProtocol
     func loadResource() {
         presenter?.didStartLoading()
         
-        cancellable = loader().sink { [weak presenter] completion in
+        cancellable = loader()
+            .dispatchOnMainQueue()
+            .sink { [weak presenter] completion in
             switch completion {
             case .finished: break
             case .failure(let error):
