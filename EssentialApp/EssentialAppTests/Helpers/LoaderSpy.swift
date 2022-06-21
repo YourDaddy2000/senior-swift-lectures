@@ -11,7 +11,7 @@ import Combine
 
 final class LoaderSpy: FeedImageDataLoader {
 //          FeedLoader
-    private var feedRequests = [PassthroughSubject<[FeedImage], Error>]()
+    private var feedRequests = [PassthroughSubject<Paginated<FeedImage>, Error>]()
     var loadFeedCounts: Int {
         feedRequests.count
     }
@@ -22,7 +22,7 @@ final class LoaderSpy: FeedImageDataLoader {
         return publisher.eraseToAnyPublisher()
     }
     
-    func completeFeedLoading(with feed: [FeedImage] = [], at index: Int = 0) {
+    func completeFeedLoading(with feed: Paginated<FeedImage> = [], at index: Int = 0) {
         feedRequests[index].send(feed)
     }
     

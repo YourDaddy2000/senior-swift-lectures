@@ -24,8 +24,8 @@ final class FeedViewAdapter: ResourceViewProtocol {
         self.selection = selection
     }
     
-    func display(_ viewModel: EssentialFeed.FeedViewModel) {
-        controller?.display(viewModel.feed.map { model in
+    func display(_ viewModel: EssentialFeed.Paginated<FeedImage>) {
+        controller?.display(viewModel.items.map { model in
             typealias ImageDataPresentationAdapter = LoadResourcePresentationAdapter<Data, WeakRefVirtualProxy<FeedImageCellController>>
             
             let adapter = ImageDataPresentationAdapter(loader: { [loader] in
