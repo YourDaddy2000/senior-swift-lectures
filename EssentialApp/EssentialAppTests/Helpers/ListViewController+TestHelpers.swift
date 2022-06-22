@@ -54,6 +54,16 @@ extension ListViewController {
         tableView.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
     }
     
+    func simulateLoadMoreAction() {
+        guard let view = cell(row: 0, section: feedLoadMoreSection) else {
+            return
+        }
+        
+        let dl = tableView.delegate
+        let index = IndexPath(row: 0, section: feedLoadMoreSection)
+        dl?.tableView?(tableView, willDisplay: view, forRowAt: index)
+    }
+    
     func simulateUserInitiatedReload() {
         refreshControl?.simulatePullToRefresh()
     }
@@ -85,6 +95,10 @@ extension ListViewController {
     
     var feedImageSection: Int {
         0
+    }
+    
+    var feedLoadMoreSection: Int {
+        1
     }
     
     func feedImageView(at row: Int) -> UITableViewCell? {

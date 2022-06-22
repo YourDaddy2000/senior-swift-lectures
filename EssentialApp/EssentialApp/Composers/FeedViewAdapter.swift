@@ -25,7 +25,7 @@ final class FeedViewAdapter: ResourceViewProtocol {
     }
     
     func display(_ viewModel: EssentialFeed.Paginated<FeedImage>) {
-        controller?.display(viewModel.items.map { model in
+        let feed: [CellController] = viewModel.items.map { model in
             typealias ImageDataPresentationAdapter = LoadResourcePresentationAdapter<Data, WeakRefVirtualProxy<FeedImageCellController>>
             
             let adapter = ImageDataPresentationAdapter(loader: { [loader] in
@@ -47,8 +47,14 @@ final class FeedViewAdapter: ResourceViewProtocol {
                 mapper: UIImage.tryMake)
             
             return CellController(id: model, view)
-        })
-        controller?.tableView.reloadData()
+        }
+        
+        let loadMore = LoadMoreCellController {
+            viewModel.loadMore?({ _ in })
+        }
+        
+        let loadMoreSection = [CellController(id: UUID(), loadMore)]
+        controller?.display(feed, loadMoreSection)
     }
 }
 
