@@ -82,6 +82,10 @@ extension ListViewController {
         cell(row: 0, section: feedLoadMoreSection) as? LoadMoreCell
     }
     
+    var canLoadMoreFeed: Bool {
+        loadMoreFeedCell != nil
+    }
+    
     func simulateUserInitiatedReload() {
         refreshControl?.simulatePullToRefresh()
     }
