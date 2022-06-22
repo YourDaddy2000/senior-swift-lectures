@@ -108,11 +108,11 @@ class FeedUIIntegrationTests: XCTestCase {
         sut.loadViewIfNeeded()
         assertThat(sut, isRendering: [])
         
-        loader.completeFeedLoading(with: Paginated<FeedImage>(items: [image0]), at: 0)
-        assertThat(sut, isRendering: [image0])
+        loader.completeFeedLoading(with: Paginated<FeedImage>(items: [image0, image1]), at: 0)
+        assertThat(sut, isRendering: [image0, image1])
         
-        sut.simulateUserInitiatedReload()
-        loader.completeFeedLoading(with: Paginated<FeedImage>(items: [image0, image1, image2, image3]), at: 1)
+        sut.simulateLoadMoreAction()
+        loader.completeFeedLoading(with: Paginated<FeedImage>(items: [image0, image1, image2, image3]), at: 0)
         assertThat(sut, isRendering: [image0, image1, image2, image3])
     }
     
@@ -126,6 +126,25 @@ class FeedUIIntegrationTests: XCTestCase {
         sut.simulateUserInitiatedReload()
         loader.completeFeedLoadingWithError(at: 1)
         assertThat(sut, isRendering: [image])
+        
+        sut.simulateLoadMoreAction()
+        loader.completeLoadMoreWithError(at: 0)
+        assertThat(sut, isRendering: [image])
+    }
+    
+    func test_loadMoreCompletion_dispatchesFromBackgroundToMainThread() {
+        let (sut, loader) = makeSUT()
+        sut.loadViewIfNeeded()
+        loader.completeFeedLoading()
+        sut.simulateLoadMoreAction()
+        
+        let exp = expectation(description: "wait for background queue")
+        DispatchQueue.global().async {
+            loader.completeLoadMore()
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
     }
     
     // MARK: - Image View Tests
@@ -342,7 +361,11 @@ class FeedUIIntegrationTests: XCTestCase {
         let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()
-        loader.completeFeedLoading(with: Paginated<FeedImage>(items: [image0, image1]), at: 0)
+        loader.completeFeedLoading(with: Paginated<FeedImage>(items: [image0]), at: 0)
+        assertThat(sut, isRendering: [image0])
+        
+        sut.simulateLoadMoreAction()
+        loader.completeFeedLoading(with: Paginated<FeedImage>(items: ([image0, image1])), at: 0)
         assertThat(sut, isRendering: [image0, image1])
         
         sut.simulateUserInitiatedReload()
